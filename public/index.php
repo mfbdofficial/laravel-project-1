@@ -1,5 +1,7 @@
 <?php
 
+//echo "FAJAR GANTENG";
+
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
@@ -44,12 +46,16 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
+//menjalankan bootstrap/app.php
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+//melakukan eksekusi kernel
 $kernel = $app->make(Kernel::class);
 
+//melakukan eksekusi request yang kita kirimkan 
 $response = $kernel->handle(
     $request = Request::capture()
 )->send();
 
+//melakukan terminate (artinya request-nya selesai)
 $kernel->terminate($request, $response);

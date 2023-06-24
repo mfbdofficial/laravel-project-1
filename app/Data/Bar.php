@@ -4,7 +4,10 @@ namespace App\Data;
 
 class Bar 
 {
-    private Foo $foo; //artinya attribute $foo harus jenis object dari class bernama "Foo" 
+    /*
+    private Foo $foo; //artinya attribute $foo harus jenis object dari class
+    */
+    public Foo $foo; //di materi Service Container jadikan public, agar bisa diakses
 
     //ceritanya class Bar ini depend ke class Foo
     //method __construct ini harus jalan, dan dia perlu parameter object dari class bernama "Foo"

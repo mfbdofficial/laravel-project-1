@@ -101,5 +101,6 @@ class ServiceContainerTest extends TestCase
 
         self::assertSame($foo, $bar1->foo); //makanya hasilnya sama
         self::assertSame($bar1->foo, $bar2->foo); //ini juga dari object $foo yang sama
+        self::assertNotSame($bar1, $bar2);
     }
 }

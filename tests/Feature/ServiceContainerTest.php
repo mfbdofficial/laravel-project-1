@@ -22,6 +22,7 @@ class ServiceContainerTest extends TestCase
         self::assertNotSame($foo1, $foo2); //mengecek jika object $foo1 dan $foo2 adalah object yang berbeda
     }
 
+    //MATERI SERVICE CONTAINER - Mengubah Cara Membuat Dependency
     public function testBind()
     {
         /*
@@ -45,6 +46,7 @@ class ServiceContainerTest extends TestCase
         self::assertNotSame($person1, $person2);
     }
 
+    //MATERI SERVICE CONTAINER - Singleton
     public function testSingleton() 
     {
         $this->app->singleton(Person::class, function($app) {
@@ -62,6 +64,7 @@ class ServiceContainerTest extends TestCase
         self::assertSame($person1, $person2);
     }
 
+    //MATERI SERVICE CONTAINER - Instance
     public function testInstance()
     {
         $person = new Person('Fajar', 'Budi');
@@ -77,6 +80,7 @@ class ServiceContainerTest extends TestCase
         self::assertSame($person1, $person2);
     }
 
+    //MATERI SERVICE CONTAINER - Dependency Injection
     public function testDependencyInjection1()
     {
         $foo = $this->app->make(Foo::class); //object ini dbuat cuma untuk memastikan bahwa $foo yang dipakai di sebagai dependency di bawah itu tidak sama
@@ -101,6 +105,31 @@ class ServiceContainerTest extends TestCase
 
         self::assertSame($foo, $bar1->foo); //makanya hasilnya sama
         self::assertSame($bar1->foo, $bar2->foo); //ini juga dari object $foo yang sama
-        self::assertNotSame($bar1, $bar2);
+        self::assertNotSame($bar1, $bar2); //method foo dari object-nya memang sama, tapi kedua object-nya itu sendiri saling berbeda
+    }
+
+    //misal kita mau untuk object bar-nya juga kembalikan object yang sama juga
+    //jadi kita mau buat object bar singleton juga (tapi perlu diketahui object bar perlu object foo yang singleton juga)
+    public function testDependencyInjectionClosure()
+    {
+        $this->app->singleton(Foo::class, function($app) {
+            return new Foo();
+        });
+        $this->app->singleton(Bar::class, function($app) {
+            return new Bar($app->make(Foo::class)); //make(Foo::class) sudah diatur untuk menjadi singleton juga
+            //bentuk lain :
+            /*
+            $foo = $app->make(Foo::class); //jangan new Foo(), karena malah akan membuat object baru lagi, pake make(Foo::class) karena sudah diatur untuk singleton
+            return new Bar($foo);
+            */
+        });
+        //$app itu sebenarnya adalah application, yaitu Service Container-nya si Laravel
+        //makanya kita bisa pakai method make(Foo::class) untuk pembuatan singleton new Bar di atas
+
+        $bar1 = $this->app->make(Bar::class); //sudah sama seperti membuat object Bar dengan melakukan make(Foo::class) sekaligus untuk dependency-nya
+        $bar2 = $this->app->make(Bar::class); //sudah dibuat singleton, maka akan kembalikan object yang sama
+
+        self::assertSame($bar1->foo, $bar2->foo); //method foo-nya sama
+        self::assertSame($bar1, $bar2); //sekarangpun object-nya juga sama
     }
 }

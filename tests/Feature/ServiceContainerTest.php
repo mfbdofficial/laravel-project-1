@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Data\Foo;
 use App\Data\Person;
 use App\Data\Bar;
+use App\Services\HelloService;
+use App\Services\HelloServiceIndonesia;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -131,5 +133,19 @@ class ServiceContainerTest extends TestCase
 
         self::assertSame($bar1->foo, $bar2->foo); //method foo-nya sama
         self::assertSame($bar1, $bar2); //sekarangpun object-nya juga sama
+    }
+
+    public function testInterfaceToClass()
+    {
+        $this->app->singleton(HelloService::class, HelloServiceIndonesia::class); //binding (parameter 1 = interface-nya, parameter 2 = class implementasi-nya)
+
+        //di bawah ini menjadi seolah melakukan new HelloServiceIndonesia()
+        $helloService1 = $this->app->make(HelloService::class); //kalo tidak ada binding di atas, maka line ini akan error,
+        //error di atas disebabkan karena HelloService itu sebenarnya adalah interface (harusnya tidak bisa di-instansiasi), 
+        //tapi kita binding menjadi ketika membuat object dari interface ini, sebenarnya seolah yg terbuat adalah class HelloServiceIndonesia
+        $helloService2 = $this->app->make(HelloService::class);
+
+        self::assertEquals('Halo fajar', $helloService1->hello('fajar')); //hasilnya benar bisa memakai method sebagai object dari class HelloServiceIndonesia
+        self::assertSame($helloService1, $helloService2); //karena singleton, jadi dikembalikan object yang sama
     }
 }

@@ -135,9 +135,30 @@ class ServiceContainerTest extends TestCase
         self::assertSame($bar1, $bar2); //sekarangpun object-nya juga sama
     }
 
-    public function testInterfaceToClass()
+    //MATERI SERVICE CONTAINER - Binding Interface ke Class
+    public function testInterfaceToClass1()
     {
-        $this->app->singleton(HelloService::class, HelloServiceIndonesia::class); //binding (parameter 1 = interface-nya, parameter 2 = class implementasi-nya)
+        //$this->app->bind(HelloService::class, HelloServiceIndonesia::class); //binding (parameter 1 = interface-nya, parameter 2 = class implementasi-nya)
+        $this->app->bind(HelloService::class, function($app) {
+            return new HelloServiceIndonesia();
+        }); //ini versi bentuk kalo pakai closure
+
+        //di bawah ini menjadi seolah melakukan new HelloServiceIndonesia()
+        $helloService1 = $this->app->make(HelloService::class); //kalo tidak ada binding di atas, maka line ini akan error,
+        //error di atas disebabkan karena HelloService itu sebenarnya adalah interface (harusnya tidak bisa di-instansiasi), 
+        //tapi kita binding menjadi ketika membuat object dari interface ini, sebenarnya seolah yg terbuat adalah class HelloServiceIndonesia
+        $helloService2 = $this->app->make(HelloService::class);
+
+        self::assertEquals('Halo fajar', $helloService1->hello('fajar')); //hasilnya benar bisa memakai method sebagai object dari class HelloServiceIndonesia
+        self::assertNotSame($helloService1, $helloService2); //karena bind, jadi membuat object baru terus 
+    }
+
+    public function testInterfaceToClass2()
+    {
+        //$this->app->singleton(HelloService::class, HelloServiceIndonesia::class); //binding (parameter 1 = interface-nya, parameter 2 = class implementasi-nya)
+        $this->app->singleton(HelloService::class, function($app) {
+            return new HelloServiceIndonesia();
+        }); //ini versi bentuk kalo pakai closure
 
         //di bawah ini menjadi seolah melakukan new HelloServiceIndonesia()
         $helloService1 = $this->app->make(HelloService::class); //kalo tidak ada binding di atas, maka line ini akan error,

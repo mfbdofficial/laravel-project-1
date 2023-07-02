@@ -22,6 +22,7 @@ class ServiceContainerTest extends TestCase
         self::assertEquals('Foo', $foo1->foo());
         self::assertEquals('Foo', $foo1->foo());
         self::assertNotSame($foo1, $foo2); //mengecek jika object $foo1 dan $foo2 adalah object yang berbeda
+        //saat materi Service Provider - Registrasi Service Provider, maka di atas ini akan error karena class Foo dan class Bar registrasi dependency-nya sudah dibuat singleton
     }
 
     //MATERI SERVICE CONTAINER - Mengubah Cara Membuat Dependency
@@ -92,6 +93,7 @@ class ServiceContainerTest extends TestCase
         //jadi Laravel sudah pintar, kamu butuh dependency apa? maka akan Laravel buat (kalo belum ada) dan inject-kan ke sana
 
         self::assertNotSame($foo, $bar1->foo); //lihat saja, $foo yg kita buat tidak sama dengan yang dijadikan dependency (hasil Laravel buatin secara otomatis)
+        //saat materi Service Provider - Registrasi Service Provider, maka di atas ini akan error karena class Foo dan class Bar registrasi dependency-nya sudah dibuat singleton
         self::assertNotSame($bar1->foo, $bar2->foo); //foo yang dimiliki $bar1 dan $bar2 pun juga berbeda
     }
 
@@ -108,6 +110,7 @@ class ServiceContainerTest extends TestCase
         self::assertSame($foo, $bar1->foo); //makanya hasilnya sama
         self::assertSame($bar1->foo, $bar2->foo); //ini juga dari object $foo yang sama
         self::assertNotSame($bar1, $bar2); //method foo dari object-nya memang sama, tapi kedua object-nya itu sendiri saling berbeda
+        //saat materi Service Provider - Registrasi Service Provider, maka di atas ini akan error karena class Foo dan class Bar registrasi dependency-nya sudah dibuat singleton
     }
 
     //misal kita mau untuk object bar-nya juga kembalikan object yang sama juga

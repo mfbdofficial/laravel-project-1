@@ -24,7 +24,8 @@ class FooBarServiceProvider extends ServiceProvider implements DeferrableProvide
     //MATERI SERVICE PROVIDER - Registrasi Service Provider
     public function register(): void
     {
-        echo 'FooBarServiceProvider'; //cuma debug, untuk cek apakah Service Provider ini jalan atau tidak
+        //echo di bawah di comment saja dahulu agar tidak muncul terus di materi berikutnya yaitu FACADES
+        //echo 'FooBarServiceProvider'; //cuma debug, untuk cek apakah Service Provider ini jalan atau tidak
         $this->app->singleton(Foo::class, function($app) {
             return new Foo();
         });

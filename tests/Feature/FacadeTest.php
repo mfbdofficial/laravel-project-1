@@ -39,4 +39,22 @@ class FacadeTest extends TestCase
         var_dump($config->all()); //sama saja seperti yg bawah
         //var_dump(Config::all());
     }
+
+    //MATERI FACADES - Facades Mock
+    public function testConfigMock()
+    {
+        //membuat Facade Mock
+        Config::shouldReceive('get')
+            ->with('contoh.author.first')
+            ->andReturn('Joko Keren');
+        
+        $firstName1 = Config::get('contoh.author.first');
+        $config = $this->app->make('config');
+        $firstName2 = $config->get('contoh.author.first');
+        //$firstName3 = config('contoh.author.first'); //bila sudah membuat mock untuk Facade di atas, maka jika kita menggunakan Helper Function untuk fungsi yg di-mock, hsasilnya akan error dari library Mockery-nya
+
+        self::assertEquals('Joko Keren', $firstName1);
+        self::assertEquals('Joko Keren', $firstName2);
+        //self::assertEquals('Fajar', $firstName3); //ini berhasil kalo tidak ada Facade Mock di atas
+    }
 }

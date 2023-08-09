@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; //ini sudah ada default saat pertama membuat Controller
 use App\Services\HelloService;
 
 class HelloController extends Controller
@@ -27,7 +27,16 @@ class HelloController extends Controller
     */
 
     //MATERI CONTROLLER - Dependency Injection
+    /*
     public function hello(string $name): string 
+    {
+        return $this->helloService->hello($name); //dari mekanisme di atas, maka ini memakai function hello() yg ada di HelloServiceIndonesia.php
+    }
+    */
+
+    //MATERI REQUEST 
+    //coba tambahkan parameter object $request dari class Request, Laravel akan secara otomatis meng-inject data request-nya
+    public function hello(Request $request, string $name): string 
     {
         return $this->helloService->hello($name); //dari mekanisme di atas, maka ini memakai function hello() yg ada di HelloServiceIndonesia.php
     }

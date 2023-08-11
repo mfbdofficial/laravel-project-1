@@ -38,6 +38,22 @@ class HelloController extends Controller
     //coba tambahkan parameter object $request dari class Request, Laravel akan secara otomatis meng-inject data request-nya
     public function hello(Request $request, string $name): string 
     {
+        //MATERI REQUEST - Request Path
+        $request->path();
+        $request->url();
+        $request->fullUrl();
+
         return $this->helloService->hello($name); //dari mekanisme di atas, maka ini memakai function hello() yg ada di HelloServiceIndonesia.php
+    }
+
+    //MATERI REQUEST - Request Method
+    public function request(Request $request): string 
+    {
+        return $request->path() . PHP_EOL .
+            $request->url() . PHP_EOL .
+            $request->fullUrl() . PHP_EOL .
+            $request->method() . PHP_EOL .
+            $request->header('Accept') . PHP_EOL;
+        //PHP_EOL itu tujuannya untuk menghasilkan new line di halaman web (tapi entah kenapa tidak bisa berfungsi di Laravel)
     }
 }

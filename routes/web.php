@@ -108,6 +108,22 @@ Route::get('/produk-redirect/{id}', function($id) { //misal ada sebuah route, ki
 Route::get('/controller/hello', [\App\Http\Controllers\HelloController::class, 'hello']); //jadi sistemnya simple cuma seperti maping saja, untuk link apa? maka jalankan Controller mana dan function-nya yg mana
 */
 
+//MATERI REQUEST - Request Method
+Route::get('/controller/hello/request', [\App\Http\Controllers\HelloController::class, 'request']); //ditaruh di atas MATERI CONTROLLER - Dependency Injection agar tidak routing conflict
+
 //MATERI CONTROLLER - Dependency Injection
 Route::get('/controller/hello/{name}', [\App\Http\Controllers\HelloController::class, 'hello']); //sekarang ada parameter karena dari function hello() di dependency HelloServiceIndonesia butuh parameter
 //parameter akan otomatis masuk ke parameter pertama di Controller-nya, begitu pula berikutnya (sesuai urutan)
+
+//MATERI REQUEST INPUT - Mengambil Input HTTP Request
+Route::get('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']); 
+Route::post('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']); //coba pakai HTTP Request Method yg berbeda tapi menuju ke Controller dan method yg sama (jadi hanya di-handle 1 code)
+
+//MATERI REQUEST INPUT - Nested Input
+Route::post('/input/hello/first', [\App\Http\Controllers\InputController::class, 'helloFirstName']);
+
+//MATERI REQUEST INPUT - Mengambil Semua Input
+Route::post('/input/hello/input', [\App\Http\Controllers\InputController::class, 'helloInput']);
+
+//MATERI REQUEST INPUT - Mengambil Array Input
+Route::post('/input/hello/array', [\App\Http\Controllers\InputController::class, 'helloArray']);

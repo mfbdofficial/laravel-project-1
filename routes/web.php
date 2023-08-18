@@ -127,3 +127,16 @@ Route::post('/input/hello/input', [\App\Http\Controllers\InputController::class,
 
 //MATERI REQUEST INPUT - Mengambil Array Input
 Route::post('/input/hello/array', [\App\Http\Controllers\InputController::class, 'helloArray']);
+
+//MATERI REQUEST INPUT - Input Query String
+Route::post('/input/hello/query-parameter', [\App\Http\Controllers\InputController::class, 'helloQueryParameter']);
+
+//MATERI INPUT TYPE - Boolean & Date
+Route::post('/input/type', [\App\Http\Controllers\InputController::class, 'inputType']);
+
+//MATERI FILTER REQUEST INPUT - Method Filter Request Input
+Route::post('/input/filter/only', [\App\Http\Controllers\InputController::class, 'filterOnly']);
+Route::post('/input/filter/except', [\App\Http\Controllers\InputController::class, 'filterExcept']);
+
+//MATERI FILTER REQUEST INPUT - FIlter Merge
+Route::post('/input/filter/merge', [\App\Http\Controllers\InputController::class, 'filterMerge']);

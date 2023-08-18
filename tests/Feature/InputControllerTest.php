@@ -78,4 +78,65 @@ class InputControllerTest extends TestCase
             ]
         ])->assertSeeText('Apple Mac Book Pro')->assertSeeText('Samsung Galaxy S');
     }
+
+    //MATERI REQUEST INPUT - Input Query String
+    public function testInputQueryParameter()
+    {
+        $this->post('/input/hello/query-parameter?brand=Dior', [
+            'products' => [
+                [
+                    'name' => 'Posh Black Gold 125ml',
+                    'price' => 35000
+                ],
+                [
+                    'name' => 'Kafh Invigorating Waterfall 35ml',
+                    'price' => 200000
+                ]
+            ]
+        ])->assertSeeText('Dior');
+    }
+
+    //MATERI INPUT TYPE - Boolean & Date
+    public function testInputType()
+    {
+        $this->post('/input/type', [
+            'name' => 'Budi',
+            'married' => 'false',
+            'birth_date' => '1999-05-14'
+        ])->assertSeeText('Budi')->assertSeeText('false')->assertSeeText('1999-05-14');
+    }
+
+    //MATERI FILTER REQUEST INPUT - Method Filter Request Input
+    public function testFilterOnly()
+    {
+        $this->post('/input/filter/only', [
+            'name' => [
+                'first' => 'Fajar',
+                'middle' => 'Budi',
+                'last' => 'Dharmawan'
+            ]
+        ])->assertSeeText('Fajar')->assertSeeText('Dharmawan')
+            ->assertDontSeeText('Budi');
+    }
+
+    public function testFilterExcept() 
+    {
+        $this->post('/input/filter/except', [
+            'username' => 'fajarbudi',
+            'admin' => 'true',
+            'password' => 'rahasia'
+        ])->assertSeeText('fajarbudi')->assertSeeText('rahasia')
+            ->assertDontSeeText('admin');
+    }
+
+    //MATERI FILTER REQUEST INPUT - FIlter Merge
+    public function testFilterMerge() 
+    {
+        $this->post('/input/filter/merge', [
+            'username' => 'fajarbudi',
+            'admin' => 'true',
+            'password' => 'rahasia'
+        ])->assertSeeText('fajarbudi')->assertSeeText('rahasia')
+            ->assertSeeText('admin')->assertSeeText('false');
+    }
 }

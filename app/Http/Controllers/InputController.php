@@ -10,6 +10,10 @@ class InputController extends Controller
     public function hello(Request $request): string
     {
         $name = $request->input('name'); //Laravel akan cek key 'name' kalo ada di query parameter maka akan diambil, kalo gaada akan cek di body ada atau engga
+        //MATERI REQUEST INPUT - Dynamic Properties
+        /*
+        $name = $request->name; //kalo ada property bernama "name", maka property akan diprioritaskan dibanding dari data input
+        */
         return 'Hello ' . $name; //jadi code-nya bisa 1 dan ga perlu khawatir dari HTTP Method apa dan posisi datanya ada dimana
     }
 
@@ -35,5 +39,50 @@ class InputController extends Controller
     {
         $names = $request->input('products.*.name'); //mengambil bagian name dari semua products
         return json_encode($names);
+    }
+
+    //MATERI REQUEST INPUT - Input Query String
+    public function helloQueryParameter(Request $request): string 
+    {
+        $inputQueryParameter = $request->query();
+        return json_encode($inputQueryParameter);
+    }
+
+    //MATERI INPUT TYPE - Boolean & Date
+    public function inputType(Request $request): string 
+    {
+        $name = $request->input('name');
+        $married = $request->boolean('married');
+        $birthDate = $request->date('birth_date', 'Y-m-d'); //bentuk format Y-m-d artinya tahun 4 digit, bulan 2 digit dan hari 2 digit
+        //ngambilnya bisa saja pakai input('married') juga input('birth_date'), tapi nanti tipe datanya cuma string
+        return json_encode([
+            'name' => $name,
+            'married' => $married,
+            'birth_date' => $birthDate//->format('Y-m-d')
+        ]);
+        //sebelum pakai method format() di atas, bentuk $birthDate sebenarnya sudah bertipe data Date (tapi masih dalam library Carbon)
+        //format() adalah method dari library carbon juga, digunakan untuk customize how the date or timestamp is displayed (misal ketika ambil data dari database)
+        //format() allows you to specify a format string using the same formatting codes as the date() from PHP. 
+    }
+
+    //MATERI FILTER REQUEST INPUT - Method Filter Request Input
+    public function filterOnly(Request $request): string 
+    {
+        $name = $request->only(['name.first', 'name.last']);
+        return json_encode($name);
+    }
+
+    public function filterExcept(Request $request): string 
+    {
+        $user = $request->except(['admin']);
+        return json_encode($user);
+    }
+
+    //MATERI FILTER REQUEST INPUT - FIlter Merge
+    public function filterMerge(Request $request): string 
+    {
+        $request->merge(['admin' => false]);
+        $user = $request->input();
+        return json_encode($user);
     }
 }

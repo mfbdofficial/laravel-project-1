@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    //MATERI FILE STORAGE - Konfigurasi File Storage
+    'default' => env('FILESYSTEM_DISK', 'local'), //defaultnya kita ambil dari evironment variables, kalo tidak ada maka default-nya 'local'
 
     /*
     |--------------------------------------------------------------------------
@@ -28,23 +29,24 @@ return [
     |
     */
 
+    //MATERI FILE STORAGE - File System
     'disks' => [
 
-        'local' => [
+        'local' => [ //ini untuk konfigurasi evironment yg local (kalo upload ke File Storage local)
             'driver' => 'local',
-            'root' => storage_path('app'),
-            'throw' => false,
+            'root' => storage_path('app'), //storage_path() itu maksudnya path keberadaan folder storage
+            'throw' => false, //ditambah dengan app maka path-nya menuju storage/app
         ],
 
-        'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
+        'public' => [ //ini kalo upload ke File Storage public
+            'driver' => 'local', 
+            'root' => storage_path('app/public'), //berdasarkan aturan storage_path() sama seperti di atas, maka path-nya menuju storage/app/public 
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
 
-        's3' => [
+        's3' => [ //ini untuk Amazon S3
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
@@ -69,8 +71,11 @@ return [
     |
     */
 
-    'links' => [
-        public_path('storage') => storage_path('app/public'),
+    //MATERI FILE STORAGE - Storage Link
+    'links' => [ //ini untuk konfigurasi symbolic links, jadi public_path() itu maksudnya path folder public
+        public_path('storage') => storage_path('app/public'), //di folder public akan membuat symbolic link bernama "storage" dan akan masuk ke app/public
+        //pas pakai php artisan storage:link, maka fie yg dari storage/app/public akan dibuatkan link-nya di public/storage
+        //kita bisa bikin lebih dari 1 symbolic link sekaligus karena bentuk dari key "links" adalah array
     ],
 
 ];

@@ -140,3 +140,6 @@ Route::post('/input/filter/except', [\App\Http\Controllers\InputController::clas
 
 //MATERI FILTER REQUEST INPUT - FIlter Merge
 Route::post('/input/filter/merge', [\App\Http\Controllers\InputController::class, 'filterMerge']);
+
+//MATERI FILE UPLOAD
+Route::post('/file/upload', [\App\Http\Controllers\FileController::class, 'upload']);

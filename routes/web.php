@@ -143,3 +143,15 @@ Route::post('/input/filter/merge', [\App\Http\Controllers\InputController::class
 
 //MATERI FILE UPLOAD
 Route::post('/file/upload', [\App\Http\Controllers\FileController::class, 'upload']);
+
+//MATERI RESPONSE 
+Route::get('/response/hello', [\App\Http\Controllers\ResponseController::class, 'response']);
+
+//MATERI RESPONSE - HTTP Response Header
+Route::get('/response/header', [\App\Http\Controllers\ResponseController::class, 'header']);
+
+//MATERI RESPONSE - Response Type
+Route::get('/response/type/view', [\App\Http\Controllers\ResponseController::class, 'responseView']);
+Route::get('/response/type/json', [\App\Http\Controllers\ResponseController::class, 'responseJson']);
+Route::get('/response/type/file', [\App\Http\Controllers\ResponseController::class, 'responseFile']);
+Route::get('/response/type/download', [\App\Http\Controllers\ResponseController::class, 'responseDownload']);

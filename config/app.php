@@ -122,9 +122,10 @@ return [
     |
     */
 
+    //MATERI ENCRYPTION
     'key' => env('APP_KEY'),
 
-    'cipher' => 'AES-256-CBC',
+    'cipher' => 'AES-256-CBC', //ini bagian cipher encryption-nya
 
     /*
     |--------------------------------------------------------------------------

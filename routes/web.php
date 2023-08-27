@@ -155,3 +155,9 @@ Route::get('/response/type/view', [\App\Http\Controllers\ResponseController::cla
 Route::get('/response/type/json', [\App\Http\Controllers\ResponseController::class, 'responseJson']);
 Route::get('/response/type/file', [\App\Http\Controllers\ResponseController::class, 'responseFile']);
 Route::get('/response/type/download', [\App\Http\Controllers\ResponseController::class, 'responseDownload']);
+
+//MATERI COOKIE - Membuat Cookie
+Route::get('/cookie/set', [\App\Http\Controllers\CookieController::class, 'createCookie']);
+
+//MATERI COOKIE - Menerima Cookie
+Route::get('/cookie/get', [\App\Http\Controllers\CookieController::class, 'getCookie']);

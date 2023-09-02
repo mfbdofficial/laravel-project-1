@@ -35,4 +35,13 @@ class CookieControllerTest extends TestCase
                 'isMember' => true
             ]); 
     }
+
+    //MATERI COOKIE - Clear Cookie
+    public function testClearCookie()
+    {
+        $this->get('/cookie/clear')
+            ->assertSeeText('Clear Cookie')
+            ->assertCookie('User-Id', '')
+            ->assertCookie('Is-Member', '');
+    }
 }

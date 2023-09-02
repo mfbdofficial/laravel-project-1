@@ -25,4 +25,12 @@ class CookieController extends Controller
                 'isMember' => $request->cookie('Is-Member', 'false')
             ]);
     }
+
+    //MATERI COOKIE - Clear Cookie
+    public function clearCookie(Request $request): Response 
+    {
+        return response('Clear Cookie')
+            ->withoutCookie('User-Id')
+            ->withoutCookie('Is-Member');
+    }
 }

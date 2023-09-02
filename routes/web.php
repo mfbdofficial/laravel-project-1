@@ -97,10 +97,10 @@ Route::get('/users/{id?}', function($userId = '404') {
 Route::get('/produk/{id}', function($id) { //misal ada sebuah route, kita mau kembalikan misal string link dari Route lain yg sudah kita beri nama Route-nya
     $link = route('product.detail', ['id' => $id]); //pakai function route() untuk mendapatkan link-nya, dengan parameter (<nama_route>, <array_associative_parameter>)
     return 'Link : ' . $link; //return string link yg sudah didapatkan
-}); //jadi kalo akses /produk/{id} maka akan kembalikan 
+}); //jadi kalo akses /produk/{id} maka akan kembalikan string link dari "product.detail"
 Route::get('/produk-redirect/{id}', function($id) { //misal ada sebuah route, kita mau jika ia diakses maka akan melakukan redirect ke Route lain yg sudah kita beri nama Route-nya
     return redirect()->route('product.detail', ['id' => $id]); //return lalu pakai function redirect() lalu route(<nama_route>, <array_associative_parameter>) untuk lakukan redirect ke route yg kita tentukan (dengan bawa parameter)
-}); //selai dengan Route::redirect(), kita juga bisa melakukan redirect dengan function redirect()->route() seperti di atas (di-return oleh closure function)
+}); //selain dengan Route::redirect(), kita juga bisa melakukan redirect dengan function redirect()->route() seperti di atas (di-return oleh closure function)
 //kalo link dari Route lain (yg sudah ada nama route-nya) tidak butuh parameter, maka bisa langsung route(<nama_route>), tanpa bawa parameter
 
 //MATERI CONTROLLER - Membuat Function di Controller
@@ -161,3 +161,39 @@ Route::get('/cookie/set', [\App\Http\Controllers\CookieController::class, 'creat
 
 //MATERI COOKIE - Menerima Cookie
 Route::get('/cookie/get', [\App\Http\Controllers\CookieController::class, 'getCookie']);
+
+//MATERI COOKIE - Clear Cookie
+Route::get('/cookie/clear', [\App\Http\Controllers\CookieController::class, 'clearCookie']);
+
+//MATERI REDIRECT
+Route::get('/redirect/from', [\App\Http\Controllers\RedirectController::class, 'redirectFrom']);
+Route::get('/redirect/to', [\App\Http\Controllers\RedirectController::class, 'redirectTo']);
+
+//MATERI REDIRECT - Redirect to Named Routes
+Route::get('/redirect/name', [\App\Http\Controllers\RedirectController::class, 'redirectName']);
+Route::get('/redirect/name/{name}', [\App\Http\Controllers\RedirectController::class, 'redirectHello'])
+    ->name('redirect.hello'); //jadi kalo route path yg ini berubah2 aman, yang penting ada name untuk route-nya
+//jadi di sini kita seolah mau buat kalo mengakses "/redirect/name" maka akan akses "/redirect/name/{nameDefault}" mendapatkan ucapan string dengan nilai $name default
+//kalo akses "/redirect/name/{name}" dengan membawa parameter, maka yg dipakai adalah $name dari isi parameter-nya
+
+//MATERI REDIRECT - Redirect to Controller Action
+Route::get('/redirect/action', [\App\Http\Controllers\RedirectController::class, 'redirectAction']);
+
+//MATERI REDIRECT - Redirect to External Domain
+Route::get('/redirect/away', [\App\Http\Controllers\RedirectController::class, 'redirectAway']);
+
+//MATERI MIDDLEWARE - Registrasi Middleware - Route Middleware
+/*
+Route::get('/middleware/api', function() {
+    return 'OK';
+})->middleware([\App\Http\Middleware\ContohMiddleware::class]); //bisa nulis class Middleware-nya
+*/
+Route::get('/middleware/api', function() {
+    return 'OK';
+})->middleware(['contoh']); //atau bisa pakai alias Middleware-nya (yg sudah dibuat)
+
+//MATERI MIDDLEWARE - Middleware Group
+//jadi selama ini, routing di file ini kita sudah memakai Middleware Group yg 'api'
+Route::get('/middleware/group', function() {
+    return 'GROUP';
+})->middleware(['sample']); //atau bisa pakai alias Middleware-nya (yg sudah dibuat)

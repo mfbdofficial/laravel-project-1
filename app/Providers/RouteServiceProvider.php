@@ -31,11 +31,11 @@ class RouteServiceProvider extends ServiceProvider
         //perhatikan bagian routes ini
         $this->routes(function () {
             Route::middleware('api')
-                ->prefix('api') 
+                ->prefix('api') //jadi semua yg prefix-nya "api", maka pakai Middleware Group yg 'api'
                 ->group(base_path('routes/api.php')); //routes-nya ke sini untuk api (ini file yang dieksekusi)
 
-            Route::middleware('web')
+            Route::middleware('web') //selain yg prefix-nya "api", maka pakai Middleware Group yg 'web'
                 ->group(base_path('routes/web.php')); //routes-nya ke sini untuk web (ini file yang dieksekusi)
-        });
-    }
+        }); //jadi Middleware Group 'api' dipakai untuk routing yg ada di routes/api.php (yg mengandung prefix "api"), 
+    } //kalo Middleware Group 'web' dipakai untuk routing yg selain api.php (tidak mengandung prefix "api"), misal di routes/web.php dll
 }

@@ -48,7 +48,8 @@ class Kernel extends HttpKernel
 
         //MATERI MIDDLEWARE - Middleware Group
         'sample' => [
-            ContohMiddleware::class, //ini bisa banyak, beberapa class Middleware bisa dijadikan menjadi 1 group
+            //ContohMiddleware::class, //ini bisa banyak, beberapa class Middleware bisa dijadikan menjadi 1 group
+            'contoh:jojojojo,401', //MATERI MIDDLEWARE - Middleware Parameter
         ],
     ];
 

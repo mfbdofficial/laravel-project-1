@@ -188,12 +188,19 @@ Route::get('/middleware/api', function() {
     return 'OK';
 })->middleware([\App\Http\Middleware\ContohMiddleware::class]); //bisa nulis class Middleware-nya
 */
+/*
 Route::get('/middleware/api', function() {
     return 'OK';
 })->middleware(['contoh']); //atau bisa pakai alias Middleware-nya (yg sudah dibuat)
+*/
 
 //MATERI MIDDLEWARE - Middleware Group
 //jadi selama ini, routing di file ini kita sudah memakai Middleware Group yg 'api'
 Route::get('/middleware/group', function() {
     return 'GROUP';
 })->middleware(['sample']); //atau bisa pakai alias Middleware-nya (yg sudah dibuat)
+
+//MATERI MIDDLEWARE - Middleware Parameter
+Route::get('/middleware/api', function() {
+    return 'OK';
+})->middleware(['contoh:jojojojo,401']);

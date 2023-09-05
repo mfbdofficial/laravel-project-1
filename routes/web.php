@@ -142,7 +142,10 @@ Route::post('/input/filter/except', [\App\Http\Controllers\InputController::clas
 Route::post('/input/filter/merge', [\App\Http\Controllers\InputController::class, 'filterMerge']);
 
 //MATERI FILE UPLOAD
+/*
 Route::post('/file/upload', [\App\Http\Controllers\FileController::class, 'upload']);
+*/ 
+//code sudah ditimpa oleh MATERI MIDDLEWARE - Exclude Middleware
 
 //MATERI RESPONSE 
 Route::get('/response/hello', [\App\Http\Controllers\ResponseController::class, 'response']);
@@ -151,10 +154,13 @@ Route::get('/response/hello', [\App\Http\Controllers\ResponseController::class, 
 Route::get('/response/header', [\App\Http\Controllers\ResponseController::class, 'header']);
 
 //MATERI RESPONSE - Response Type
+/*
 Route::get('/response/type/view', [\App\Http\Controllers\ResponseController::class, 'responseView']);
 Route::get('/response/type/json', [\App\Http\Controllers\ResponseController::class, 'responseJson']);
 Route::get('/response/type/file', [\App\Http\Controllers\ResponseController::class, 'responseFile']);
 Route::get('/response/type/download', [\App\Http\Controllers\ResponseController::class, 'responseDownload']);
+*/
+//code sudah ditimpa oleh MATERI ROUTE GROUP - Route Prefix
 
 //MATERI COOKIE - Membuat Cookie
 Route::get('/cookie/set', [\App\Http\Controllers\CookieController::class, 'createCookie']);
@@ -193,14 +199,47 @@ Route::get('/middleware/api', function() {
     return 'OK';
 })->middleware(['contoh']); //atau bisa pakai alias Middleware-nya (yg sudah dibuat)
 */
+//code sudah ditimpa oleh MATERI MIDDLEWARE - Middleware Parameter
 
 //MATERI MIDDLEWARE - Middleware Group
 //jadi selama ini, routing di file ini kita sudah memakai Middleware Group yg 'api'
+/*
 Route::get('/middleware/group', function() {
     return 'GROUP';
 })->middleware(['sample']); //atau bisa pakai alias Middleware-nya (yg sudah dibuat)
+*/
+//code sudah ditimpa oleh MATERI ROUTE GROUP - Route Middleware
 
 //MATERI MIDDLEWARE - Middleware Parameter
+/*
 Route::get('/middleware/api', function() {
     return 'OK';
 })->middleware(['contoh:jojojojo,401']);
+*/
+//code sudah ditimpa oleh MATERI ROUTE GROUP - Route Middleware
+
+//MATERI MIDDLEWARE - Exclude Middleware
+Route::post('/file/upload', [\App\Http\Controllers\FileController::class, 'upload']) //menimpa code MATERI FILE UPLOAD
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class); 
+
+//MATERI CROSS SITE REQUEST FORGERY - CSRF Token
+Route::get('/form', [\App\Http\Controllers\FormController::class, 'renderForm']); //ingat, kita bisa bedakan routing berdasarkan HTTP Request Method-nya
+Route::post('/form', [\App\Http\Controllers\FormController::class, 'submitForm']); //jadi untuk membuat sebuah fungsi, tidak perlu kebanyakan endpoint
+
+//MATERI ROUTE GROUP - Route Prefix
+Route::prefix('/response/type')->group(function() {
+    Route::get('view', [\App\Http\Controllers\ResponseController::class, 'responseView']);
+    Route::get('json', [\App\Http\Controllers\ResponseController::class, 'responseJson']);
+    Route::get('file', [\App\Http\Controllers\ResponseController::class, 'responseFile']);
+    Route::get('download', [\App\Http\Controllers\ResponseController::class, 'responseDownload']);
+});
+
+//MATERI ROUTE GROUP - Route Middleware
+Route::middleware(['contoh:jojojojo,401'])->group(function() {
+    Route::get('/middleware/group', function() {
+        return 'GROUP';
+    });
+    Route::get('/middleware/api', function() {
+        return 'OK';
+    });
+});

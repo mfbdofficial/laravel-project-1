@@ -42,4 +42,5 @@ class ContohMiddlewareTest extends TestCase
             ->assertStatus(200)
             ->assertSeeText('GROUP');
     }
+    //code unit test di atas ini juga dipakai untuk MATERI ROUTE GROUP - Route Middleware
 }

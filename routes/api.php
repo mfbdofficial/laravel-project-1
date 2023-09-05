@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//MATERI ROUTE GROUP - Route Prefix
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+});  //artinya karena ada prefix() untuk Route di file ini, aslinya itu path di atas adalah '/api/user'

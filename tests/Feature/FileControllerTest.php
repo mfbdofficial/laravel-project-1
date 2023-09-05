@@ -16,11 +16,10 @@ class FileControllerTest extends TestCase
     public function testUpload()
     {
         //pakai fitur Fake dari Laravel untuk membuat suatu hal yg palsu
-        $picture = UploadedFile::fake()->image('fajar.png'); //ini fitur fake, bikin tipe image, dengan nama file "fajar.png"
+        $picture = UploadedFile::fake()->image('budi.png'); //ini fitur fake, bikin tipe image, dengan nama file "fajar.png"
         //image fake di atas akan hasilkan gambar kotak hitam saja
         $this->post('/file/upload', [
             'picture' => $picture
-        ])->assertSeeText('File uploaded successfully : fajar.png');
-
+        ])->assertSeeText('File uploaded successfully : budi.png');
     }
 }

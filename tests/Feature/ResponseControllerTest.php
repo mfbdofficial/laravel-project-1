@@ -72,4 +72,5 @@ class ResponseControllerTest extends TestCase
         $this->get('response/type/download')
             ->assertDownload('coffee-download.jpg'); //assertDownload() untuk cek file yg di-download, pakai parameter nama file yg di-download
     }
+    //code unit test di atas ini juga dipakai untuk MATERI ROUTE GROUP - Route Prefix
 }

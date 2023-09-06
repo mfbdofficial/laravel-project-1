@@ -163,13 +163,22 @@ Route::get('/response/type/download', [\App\Http\Controllers\ResponseController:
 //code sudah ditimpa oleh MATERI ROUTE GROUP - Route Prefix
 
 //MATERI COOKIE - Membuat Cookie
+/*
 Route::get('/cookie/set', [\App\Http\Controllers\CookieController::class, 'createCookie']);
+*/
+//code sudah ditimpa oleh MATERI ROUTE GROUP - Route Controller
 
 //MATERI COOKIE - Menerima Cookie
+/*
 Route::get('/cookie/get', [\App\Http\Controllers\CookieController::class, 'getCookie']);
+*/
+//code sudah ditimpa oleh MATERI ROUTE GROUP - Route Controller
 
 //MATERI COOKIE - Clear Cookie
+/*
 Route::get('/cookie/clear', [\App\Http\Controllers\CookieController::class, 'clearCookie']);
+*/
+//code sudah ditimpa oleh MATERI ROUTE GROUP - Route Controller
 
 //MATERI REDIRECT
 Route::get('/redirect/from', [\App\Http\Controllers\RedirectController::class, 'redirectFrom']);
@@ -235,6 +244,7 @@ Route::prefix('/response/type')->group(function() {
 });
 
 //MATERI ROUTE GROUP - Route Middleware
+/*
 Route::middleware(['contoh:jojojojo,401'])->group(function() {
     Route::get('/middleware/group', function() {
         return 'GROUP';
@@ -242,4 +252,43 @@ Route::middleware(['contoh:jojojojo,401'])->group(function() {
     Route::get('/middleware/api', function() {
         return 'OK';
     });
+});
+*/
+//code sudah ditimpa oleh MATERI ROUTE GROUP - Multiple Route Group
+
+//MATERI ROUTE GROUP - Route Controller
+Route::controller(\App\Http\Controllers\CookieController::class)->group(function() {
+    Route::get('/cookie/set', 'createCookie'); //tinggal sebutkan path dan nama method (tanpa class Controller-nya)
+    Route::get('/cookie/get', 'getCookie'); //sebutkan nama method-nya pakai string, sudah bukan array
+    Route::get('/cookie/clear', 'clearCookie');
+});
+
+//MATERI ROUTE GROUP - Multiple Route Group
+Route::middleware(['contoh:jojojojo,401'])->prefix('/middleware')->group(function() {
+    Route::get('/group', function() {
+        return 'GROUP';
+    });
+    Route::get('/api', function() {
+        return 'OK';
+    });
+});
+
+//MATERI URL GENERATION - Current URL
+Route::get('/url/currentfull', function() {
+    //return url()->full() //ini kalo pakai url()
+    return \Illuminate\Support\Facades\URL::full(); //ini kalo pakai Facade URL
+});
+Route::get('/url/current', function() {
+    //return url()->current() //ini kalo pakai url()
+    return \Illuminate\Support\Facades\URL::current(); //ini kalo pakai Facade URL
+});
+
+//MATERI URL GENERATION - URL untuk Named Routes
+//sebelumnya pada MATERI REDIRECT - Redirect to Named Routes, kita sudah membuat named route dengan nama "redirect.hello"
+//"redirect.hello" ini merupakan name untuk Route "/redirect/name/{name}", yg membawa parameter "name"
+//sekarang kita pakai itu untuk contoh mengembalikan string URL pada named route
+Route::get('/url/named', function() {
+    //return route('redirect.hello', ['name' => 'Fajar']); //ini pake cara Helper Function, sama saja
+    //return url()->route('redirect.hello', ['name' => 'Fajar']); //ini pake cara object url sama saja
+    return \Illuminate\Support\Facades\URL::route('redirect.hello', ['name' => 'Fajar']); //ini pake cara Facade URL
 });

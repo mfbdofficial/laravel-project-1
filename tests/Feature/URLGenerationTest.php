@@ -29,4 +29,11 @@ class URLGenerationTest extends TestCase
         $this->get('/url/named')
             ->assertSeeText('/redirect/name/Fajar');
     }
+
+    //MATERI URL GENERATION - URL untuk Controller Action
+    public function testAction() 
+    {
+        $this->get('/url/action')
+            ->assertSeeText('/form');
+    }
 }

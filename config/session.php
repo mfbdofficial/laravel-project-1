@@ -17,8 +17,10 @@ return [
     |            "memcached", "redis", "dynamodb", "array"
     |
     */
+    //MATERI SESSION
+    //pihak Laravel jelaskan di atas, ada banyak supported tempat naruh Session-nya, bebas kita mau taruh dimana
 
-    'driver' => env('SESSION_DRIVER', 'file'),
+    'driver' => env('SESSION_DRIVER', 'file'), //nah untuk default-nya itu pakai file
 
     /*
     |--------------------------------------------------------------------------

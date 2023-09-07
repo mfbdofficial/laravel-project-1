@@ -232,7 +232,10 @@ Route::post('/file/upload', [\App\Http\Controllers\FileController::class, 'uploa
     ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class); 
 
 //MATERI CROSS SITE REQUEST FORGERY - CSRF Token
+/*
 Route::get('/form', [\App\Http\Controllers\FormController::class, 'renderForm']); //ingat, kita bisa bedakan routing berdasarkan HTTP Request Method-nya
+*/
+//code sudah ditimpa oleh MATERI URL GENERATION - URL untuk Controller Action
 Route::post('/form', [\App\Http\Controllers\FormController::class, 'submitForm']); //jadi untuk membuat sebuah fungsi, tidak perlu kebanyakan endpoint
 
 //MATERI ROUTE GROUP - Route Prefix
@@ -289,6 +292,17 @@ Route::get('/url/current', function() {
 //sekarang kita pakai itu untuk contoh mengembalikan string URL pada named route
 Route::get('/url/named', function() {
     //return route('redirect.hello', ['name' => 'Fajar']); //ini pake cara Helper Function, sama saja
-    //return url()->route('redirect.hello', ['name' => 'Fajar']); //ini pake cara object url sama saja
+    //return url()->route('redirect.hello', ['name' => 'Fajar']); //ini pake cara object url, sama saja
     return \Illuminate\Support\Facades\URL::route('redirect.hello', ['name' => 'Fajar']); //ini pake cara Facade URL
+});
+
+//MATERI URL GENERATION - URL untuk Controller Action
+//misal ada sebuah Route
+Route::get('/form', [\App\Http\Controllers\FormController::class, 'renderForm']);
+//kita bisa return URL Route-nya berdasarkan Controller Action-nya (Controller dan Method Controller-nya)
+Route::get('/url/action', function() {
+    //return action([\App\Http\Controllers\FormController::class, 'renderForm'], []); //ini pake cara Helper Function, sama saja
+    //return url()->action([\App\Http\Controllers\FormController::class, 'renderForm'], []); //ini pake cara object url, sama saja
+    return \Illuminate\Support\Facades\URL::action([\App\Http\Controllers\FormController::class, 'renderForm'], []);
+    //di contoh ini parameter-nya kosong (tidak bawa parameter)
 });

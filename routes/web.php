@@ -306,3 +306,15 @@ Route::get('/url/action', function() {
     return \Illuminate\Support\Facades\URL::action([\App\Http\Controllers\FormController::class, 'renderForm'], []);
     //di contoh ini parameter-nya kosong (tidak bawa parameter)
 });
+
+//MATERI SESSION - Menyimpan Data ke Session
+Route::get('/session/create', [\App\Http\Controllers\SessionController::class, 'createSession']);
+
+//MATERI SESSION - Mengambil Data dari Session
+Route::get('/session/get', [\App\Http\Controllers\SessionController::class, 'getSession']);
+
+//MATERI ERROR HANDLING - Konfigurasi Error Handler
+//MATERI ERROR HANDLING - Error Reporter
+Route::get('/error/sample', function () {
+    throw new Exception('Sample Error'); //misal bikin Route yg selalu melempar exception, nanti dilihat bedanya berdasarkan nilai 'debug' di config/app.php
+});

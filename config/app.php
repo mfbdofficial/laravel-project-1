@@ -42,7 +42,8 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    //MATERI ERROR HANDLING - Konfigurasi Error Handler
+    'debug' => (bool) env('APP_DEBUG', false), //(bool) artinya tipe datanya boolean
 
     /*
     |--------------------------------------------------------------------------

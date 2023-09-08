@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request; //jangan lupa use untuk object Request
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -16,6 +17,11 @@ class Handler extends ExceptionHandler
         'current_password',
         'password',
         'password_confirmation',
+    ];
+
+    //MATERI ERROR HANDLING - Ignore Exception (Report)
+    protected $dontReport = [
+        ValidationException::class
     ];
 
     /**
@@ -39,6 +45,11 @@ class Handler extends ExceptionHandler
         });
         $this->reportable(function (Throwable $e) {
             var_dump($e); 
+        });
+
+        //MATERI ERROR HANDLING - Rendering Exception
+        $this->renderable(function (ValidationException $exception, Request $request) {
+            return response('Bad Request', 400);
         });
     }
 }

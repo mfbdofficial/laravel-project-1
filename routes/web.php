@@ -318,3 +318,18 @@ Route::get('/session/get', [\App\Http\Controllers\SessionController::class, 'get
 Route::get('/error/sample', function () {
     throw new Exception('Sample Error'); //misal bikin Route yg selalu melempar exception, nanti dilihat bedanya berdasarkan nilai 'debug' di config/app.php
 });
+
+//MATERI ERROR HANDLING - Manual Error Report
+Route::get('/error/manual', function () {
+    //jadi misal di bagian ini kita sedang melakukan try-catch untuk error handling,
+    //nah kan biasanya kita melakukan throw exception kalo error (jadi error bisa ditampilkan, sekaligus Error Reporter-nya berjalan),
+    //kalo ini kita tidak mau menampilkan halaman web error dengan melakukan throw exception, kita cuma mau men-trigger dan jalankan Error Reporter-nya saja
+    report(new Exception('Sample Error'));
+    return 'OK'; //misal telah terjadi error dan kita men-trigger Error Reporter-nya saja, tapi di halaman web tetap menampilkan "OK"
+});
+
+//MATERI ERROR HANDLING - Ignore Exception (Report)
+//MATERI ERROR HANDLING - Rendering Exception
+Route::get('/error/validation', function () {
+    throw new App\Exceptions\ValidationException('Validation Error');
+});

@@ -2,6 +2,7 @@
 
 //use App\Http\Controllers\HelloController;
 use Illuminate\Support\Facades\Route;
+use App\Exceptions\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -331,5 +332,25 @@ Route::get('/error/manual', function () {
 //MATERI ERROR HANDLING - Ignore Exception (Report)
 //MATERI ERROR HANDLING - Rendering Exception
 Route::get('/error/validation', function () {
-    throw new App\Exceptions\ValidationException('Validation Error');
+    //throw new \App\Exceptions\ValidationException('Validation Error'); //ini bisa tapi entah kenapa penulisannya tidak disarankan oleh PHP Intelephense
+    throw new ValidationException('Validation Error'); //jadi pakai bentuk ini, lalu pakai use namespace-nya, ada di atas
+});
+
+//MATERI HTTP EXCEPTION
+/*
+Route::get('/abort/400', function () {
+    abort(400); //ini tanpa message
+});
+*/
+//code sudah ditimpa oleh MATERI HTTP EXCEPTION - HTTP Error Page
+Route::get('/abort/401', function () {
+    abort(401);
+});
+Route::get('/abort/500', function () {
+    abort(500);
+});
+
+//MATERI HTTP EXCEPTION - HTTP Error Page
+Route::get('/abort/400', function () {
+    abort(400, 'Ups Validation Error'); //ini membawa message
 });

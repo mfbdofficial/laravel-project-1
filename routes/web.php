@@ -3,6 +3,7 @@
 //use App\Http\Controllers\HelloController;
 use Illuminate\Support\Facades\Route;
 use App\Exceptions\ValidationException;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +120,10 @@ Route::get('/controller/hello/{name}', [\App\Http\Controllers\HelloController::c
 //MATERI REQUEST INPUT - Mengambil Input HTTP Request
 Route::get('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']); 
 Route::post('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']); //coba pakai HTTP Request Method yg berbeda tapi menuju ke Controller dan method yg sama (jadi hanya di-handle 1 code)
+Route::get('/search', function(Request $request) {
+    //dd($request);
+    dd($request->name . ' ' . $request->city);
+});
 
 //MATERI REQUEST INPUT - Nested Input
 Route::post('/input/hello/first', [\App\Http\Controllers\InputController::class, 'helloFirstName']);
@@ -162,6 +167,17 @@ Route::get('/response/type/file', [\App\Http\Controllers\ResponseController::cla
 Route::get('/response/type/download', [\App\Http\Controllers\ResponseController::class, 'responseDownload']);
 */
 //code sudah ditimpa oleh MATERI ROUTE GROUP - Route Prefix
+
+//MATERI RESPONSE - Header Berpengaruh Dengan Isi Value response()
+/*
+Route::get('/response/hello', function() {
+    return response('<h1>Hello World</h1>'); //maka isi string HTML ini akan di-render menjadi tag <h1></h1> HTML
+}); //Header 'Content-Type' otomatis ber-value 'text/html'
+*/
+Route::get('/response/hello', function() {
+    return response('<h1>Hello World</h1>') //tag <h1></h1> tidak di-render dan cuma menjadi string biasa
+    ->header('Content-Type', 'text/plain'); //karena ada Header yg menegaskan isi tipe content-nya plain text biasa
+});
 
 //MATERI COOKIE - Membuat Cookie
 /*
@@ -336,6 +352,13 @@ Route::get('/error/validation', function () {
     throw new ValidationException('Validation Error'); //jadi pakai bentuk ini, lalu pakai use namespace-nya, ada di atas
 });
 
+//MATERI ERROR HANDLING - Debug Dengan Hardcode
+Route::get('/posts/{id}', function($id) {
+    //dd($id);
+    ddd($id);
+    return response('Post ' . $id);
+});
+
 //MATERI HTTP EXCEPTION
 /*
 Route::get('/abort/400', function () {
@@ -353,4 +376,49 @@ Route::get('/abort/500', function () {
 //MATERI HTTP EXCEPTION - HTTP Error Page
 Route::get('/abort/400', function () {
     abort(400, 'Ups Validation Error'); //ini membawa message
+});
+
+
+//PART WHERE THE PROJECT STARTS
+/*
+Route::get('/home', function() {
+    return view('listings', [
+        'heading' => 'Latest Listings',
+        'listings' => [
+            [
+                'id' => 1,
+                'title' => 'Listing One',
+                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, quos ratione blanditiis impedit laborum repudiandae perferendis id aliquid. Placeat aperiam perspiciatis exercitationem minus ea sed possimus pariatur quidem doloribus nihil!'
+            ],
+            [
+                'id' => 2,
+                'title' => 'Listing Two',
+                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, quos ratione blanditiis impedit laborum repudiandae perferendis id aliquid. Placeat aperiam perspiciatis exercitationem minus ea sed possimus pariatur quidem doloribus nihil.'
+            ]
+        ]
+    ]);
+});
+*/
+
+//MATERI LARAVEL ELOQUENT - Model
+use App\Models\Listing;
+Route::get('/home', function() {
+    return view('listings', [
+        'heading' => 'Latest Listings',
+        'listings' => Listing::all() //sekarang data sudah berasal dari Model, bukan hadrcode di Route-nya
+    ]);
+});
+/*
+Route::get('/home/listing/{id}', function($id) {
+    return view('listings', [
+        'heading' => 'Latest Listings',
+        'listings' => [Listing::find($id)] //ini kalo mau pakai halaman listings.blade.php, karena ada foreach jadi harus dibungkus array lagi,
+        //karena melakukan looping lagi, tapi kita pakai halaman View barus saja yaitu listing.blade.php
+    ]);
+});
+*/
+Route::get('/home/listing/{id}', function($id) {
+    return view('listing', [
+        'listing' => Listing::find($id)
+    ]);
 });

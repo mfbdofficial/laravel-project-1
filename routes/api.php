@@ -18,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });  //artinya karena ada prefix() untuk Route di file ini, aslinya itu path di atas adalah '/api/user'
+
+//MATERI ROUTING - Routing Kalo Kita Membuat API
+Route::get('/posts', function() {
+    return response()->json([
+        'posts' => [
+            'title' => 'Post One',
+            'description' => 'This is post number one.'
+        ]
+        ]);
+});

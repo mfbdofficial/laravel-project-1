@@ -413,7 +413,7 @@ Route::get('/home/listing/{id}', function($id) {
     return view('listings', [
         'heading' => 'Latest Listings',
         'listings' => [Listing::find($id)] //ini kalo mau pakai halaman listings.blade.php, karena ada foreach jadi harus dibungkus array lagi,
-        //karena melakukan looping lagi, tapi kita pakai halaman View barus saja yaitu listing.blade.php
+        //karena melakukan looping lagi, tapi kita pakai halaman View yang baru saja yaitu listing.blade.php
     ]);
 });
 */

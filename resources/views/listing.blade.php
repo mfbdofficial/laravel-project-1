@@ -1,5 +1,10 @@
-<!--MATERI LARAVEL ELOQUENT - Model-->
-<h2>{{$listing['title']}}</h2>
-<p>{{$listing['description']}}</p>
+<!--ayo pakai layout yg sudah dibuat-->
+@extends('layout')
 
-<a href="/home">Back to see all listings</a>
+@section('content')
+    <!--MATERI LARAVEL ELOQUENT - Model-->
+    <h2>{{$listing['title']}}</h2>
+    <p>{{$listing['description']}}</p>
+
+    <a href="/home">Back to see all listings</a>
+@endsection

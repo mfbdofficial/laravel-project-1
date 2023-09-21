@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
-//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-//class Listing extends Model
-class Listing
+class Listing extends Model
+//class Listing
 {
-    //use HasFactory;
+    //MATERI DATABASE IN LARAVEL - Penggunaan Model, Migration, Seeder, Factory Terkoneksi MySQL
+    use HasFactory;
 
     //MATERI LARAVEL ELOQUENT - Model
+    //sumber data bagian ini masih hardcode belum dari database
+    /*
     public static function all() {
         return [
             [
@@ -38,4 +41,6 @@ class Listing
             }
         }
     }
+    */
+    //code sudah ditimpa oleh
 }

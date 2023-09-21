@@ -401,6 +401,7 @@ Route::get('/home', function() {
 */
 
 //MATERI LARAVEL ELOQUENT - Model
+//MATERI DATABASE IN LARAVEL - Penggunaan Model, Migration, Seeder, Factory Terkoneksi MySQL
 use App\Models\Listing;
 Route::get('/home', function() {
     return view('listings', [

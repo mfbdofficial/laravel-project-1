@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //MATERI DATABASE IN LARAVEL - Penggunaan Model, Migration, Seeder, Factory Terkoneksi MySQL
         Schema::create('listings', function (Blueprint $table) {
             $table->id(); //membuat field id, yg biasanya menjadi Primary Key
             $table->string('title'); //membuat field tipe data string dengan string(<nama_field>)

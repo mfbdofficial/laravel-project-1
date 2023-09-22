@@ -418,8 +418,35 @@ Route::get('/home/listing/{id}', function($id) {
     ]);
 });
 */
+
+/*
 Route::get('/home/listing/{id}', function($id) {
     return view('listing', [
         'listing' => Listing::find($id)
     ]);
+}); //kalo route ini kita akses untuk $id yg tidak ada maka akan error (menampilkan halaman Laravel, memberitahu detail error), karena belum kita handle
+*/ //jadi pakailah cara di bawah
+/*
+Route::get('/home/listing/{id}', function($id) {
+    $listing = Listing::find($id);
+    //cek jika listing ada isinya, maka dia akan true
+    if ($listing) {
+        //kalo ada datanya maka kita return-kan
+        return view('listing', [
+            'listing' => $listing
+        ]);
+    } else {
+        //kalo gaada maka lalukan sesuatu sesuka kita, misal kasih error 404
+        abort('404');
+    }   
+}); //nah namun cara handling ini masih terlalu panjang, sebenarnya kita bisa lakukan Route Model Binding (berkat Eloquent Model) seperti di bawah
+*/
+//MATERI LARAVEL ELOQUENT - Model - Route Model Binding
+//kita manfaatkan Eloquent Model untuk melakukan Route Model Binding
+Route::get('/home/listing/{listing}', function(Listing $listing) { //parameter id diganti karena ini bentuknya akan menjadi object $listing dari Model bernama Listing yg sudah kita buat
+    //lalu kita bisa langsung return saja object $listing itu
+    return view('listing', [
+        'listing' => $listing
+    ]); //tidak perlu melakukan error handling, karena akan otomatis kembalikan 404 secara default (kalo pake Route Model Binding di Eloquent)
 });
+

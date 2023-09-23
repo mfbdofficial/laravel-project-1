@@ -18,6 +18,7 @@
     <div class="mx-4">
         <!--<div class="bg-gray-50 border border-gray-200 p-10 rounded">-->
         <!--bagian tag di atas sudah diganti dengan Component-->
+        <!--MATERI BLADE TEMPLATE LARAVEL - Directive - Component - Component Digabungkan Dengan Component Lain-->
         <x-card class="p-24 bg-black"> <!--entah kenapa bagian yg merge attribute class ini tidak jalan-->
             <div class="flex flex-col items-center justify-center text-center">
                 <img class="w-48 mr-6 mb-6" src="{{asset('images/no-image.png')}}" alt="">

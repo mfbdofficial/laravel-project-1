@@ -1,3 +1,4 @@
+<!--MATERI BLADE TEMPLATE LARAVEL - Directive - Component - Component Digabungkan Dengan Component Lain-->
 <!--
 <div class="bg-gray-50 border border-gray-200 rounded p-6">
 -->

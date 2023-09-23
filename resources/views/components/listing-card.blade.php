@@ -2,6 +2,7 @@
 @props(['listing']) <!--bagian ini akan parsing data $listing, yg hasil dari perulangan di page utama (yg diakses) listings.blade.php kita-->
 <!--untuk Directive di atas dilakukan karena bagian component ini membutuhkan data $listing tersebut-->
 
+<!--MATERI BLADE TEMPLATE LARAVEL - Directive - Component - Component Digabungkan Dengan Component Lain-->
 <!--bagian ini akan menjadi component kita (dalam Blade Templating)-->
 <x-card>
     <div class="flex">

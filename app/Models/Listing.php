@@ -43,4 +43,26 @@ class Listing extends Model
     }
     */
     //code sudah ditimpa oleh
+
+    public function scopeFilter($query, array $filters) 
+    {
+        /*
+        dd($filters['tag']);
+        */
+
+        //lakukan cek pakai double question mark, artinya "jika ini tidak false maka lakukan ..."
+        if($filters['tag'] ?? false) {
+            //$query->where('tags', 'LIKE', '%' . $filters['tag'] . '%'); //bisa pakai $filters ini yg datanya di-passing dari Controller, lalu pakai Model method filter()
+            $query->where('tags', 'LIKE', '%' . request('tag') . '%'); //atau bisa pakai Helper Function untuk cek data tag-nya ke $query
+            //tapi untuk cara Dependency Injection object $request tidak bisa dilakukan, karena sudah aturan scopeFilter() hanya menerima 2 parameter ($query dan $filters)
+            
+        }
+
+        if($filters['search'] ?? false) {
+            $query->where('title', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('description', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('tags', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('location', 'LIKE', '%' . request('search') . '%'); 
+        }
+    }
 }

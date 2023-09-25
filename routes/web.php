@@ -403,12 +403,15 @@ Route::get('/home', function() {
 //MATERI LARAVEL ELOQUENT - Model
 //MATERI DATABASE IN LARAVEL - Penggunaan Model, Migration, Seeder, Factory Terkoneksi MySQL
 use App\Models\Listing;
+/*
 Route::get('/home', function() {
     return view('listings', [
-        'heading' => 'Latest Listings',
+        'heading' => 'Latest Listings', //kita sudah tidak butuh data ini (tidak dipakai di View yg sekarang), tapi karena ada bekas code percobaan sebelumnya maka biarkan saja
         'listings' => Listing::all() //sekarang data sudah berasal dari Model, bukan hadrcode di Route-nya
     ]);
 });
+*/
+//code sudah ditimpa oleh Route '/home' di bawah, sudah melalui Controller
 /*
 Route::get('/home/listing/{id}', function($id) {
     return view('listings', [
@@ -443,10 +446,15 @@ Route::get('/home/listing/{id}', function($id) {
 */
 //MATERI LARAVEL ELOQUENT - Model - Route Model Binding
 //kita manfaatkan Eloquent Model untuk melakukan Route Model Binding
+/*
 Route::get('/home/listing/{listing}', function(Listing $listing) { //parameter id diganti karena ini bentuknya akan menjadi object $listing dari Model bernama Listing yg sudah kita buat
     //lalu kita bisa langsung return saja object $listing itu
     return view('listing', [
         'listing' => $listing
     ]); //tidak perlu melakukan error handling, karena akan otomatis kembalikan 404 secara default (kalo pake Route Model Binding di Eloquent)
 });
+*/
+//code sudah ditimpa oleh Route '/home' di bawah, sudah melalui Controller
 
+Route::get('/home', [\App\Http\Controllers\ListingController::class, 'index']);
+Route::get('/home/listing/{listing}', [\App\Http\Controllers\ListingController::class, 'show']);

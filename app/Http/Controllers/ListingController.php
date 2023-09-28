@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Listing; //untuk memakai Model Listing
+use Illuminate\Validation\Rule; //untuk memakai fitur validasi Rule
 
 class ListingController extends Controller
 {
@@ -49,6 +50,30 @@ class ListingController extends Controller
         //sekarang sudah pakai best practice untuk penamaan dan struktur View-nya
         return view('listings.show', [
             'listing' => $listing
+        ]);
+    }
+
+    //to show a page (form) for create a new job listing
+    public function create()
+    {
+        return view('listings.create');
+    }
+
+    //to store a listing data from the create form page 
+    public function store(Request $request)
+    {
+        /*
+        dd($request->all());
+        */
+        //melakukan validasi data di Laravel pakai validate()
+        $formFields = $request->validate([
+            'title' => 'required', //required artinya tidak boleh kosong
+            'company' => ['required', Rule::unique('listings', 'company')], //pakai bantuan Rule:unique(), artinya data ga boleh sama, parameter-nya array ['table_name', 'field_name']
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'], //email artinya harus dalam bentuk email yg valid
+            'tags' => 'required',
+            'description' => 'required',
         ]);
     }
 }

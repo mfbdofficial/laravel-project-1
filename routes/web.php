@@ -413,7 +413,7 @@ Route::get('/home', function() {
 */
 //code sudah ditimpa oleh Route '/home' di bawah, sudah melalui Controller
 /*
-Route::get('/home/listing/{id}', function($id) {
+Route::get('/home/listings/{id}', function($id) {
     return view('listings', [
         'heading' => 'Latest Listings',
         'listings' => [Listing::find($id)] //ini kalo mau pakai halaman listings.blade.php, karena ada foreach jadi harus dibungkus array lagi,
@@ -423,14 +423,14 @@ Route::get('/home/listing/{id}', function($id) {
 */
 
 /*
-Route::get('/home/listing/{id}', function($id) {
+Route::get('/home/listings/{id}', function($id) {
     return view('listing', [
         'listing' => Listing::find($id)
     ]);
 }); //kalo route ini kita akses untuk $id yg tidak ada maka akan error (menampilkan halaman Laravel, memberitahu detail error), karena belum kita handle
 */ //jadi pakailah cara di bawah
 /*
-Route::get('/home/listing/{id}', function($id) {
+Route::get('/home/listings/{id}', function($id) {
     $listing = Listing::find($id);
     //cek jika listing ada isinya, maka dia akan true
     if ($listing) {
@@ -447,7 +447,7 @@ Route::get('/home/listing/{id}', function($id) {
 //MATERI LARAVEL ELOQUENT - Model - Route Model Binding
 //kita manfaatkan Eloquent Model untuk melakukan Route Model Binding
 /*
-Route::get('/home/listing/{listing}', function(Listing $listing) { //parameter id diganti karena ini bentuknya akan menjadi object $listing dari Model bernama Listing yg sudah kita buat
+Route::get('/home/listings/{listing}', function(Listing $listing) { //parameter id diganti karena ini bentuknya akan menjadi object $listing dari Model bernama Listing yg sudah kita buat
     //lalu kita bisa langsung return saja object $listing itu
     return view('listing', [
         'listing' => $listing
@@ -456,5 +456,11 @@ Route::get('/home/listing/{listing}', function(Listing $listing) { //parameter i
 */
 //code sudah ditimpa oleh Route '/home' di bawah, sudah melalui Controller
 
+//All Listings
 Route::get('/home', [\App\Http\Controllers\ListingController::class, 'index']);
-Route::get('/home/listing/{listing}', [\App\Http\Controllers\ListingController::class, 'show']);
+//Show Create Form
+Route::get('/home/listings/create', [\App\Http\Controllers\ListingController::class, 'create']); //agar tidak Routing Conflict, maka ini posisinya di atas
+//Store Listing Data
+Route::post('/home/listings', [\App\Http\Controllers\ListingController::class, 'store']); 
+//Single Listing
+Route::get('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'show']); //ini posisinya di bawah

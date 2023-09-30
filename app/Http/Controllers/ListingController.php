@@ -59,6 +59,7 @@ class ListingController extends Controller
         return view('listings.create');
     }
 
+    //MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
     //to store a listing data from the create form page 
     public function store(Request $request)
     {
@@ -75,5 +76,10 @@ class ListingController extends Controller
             'tags' => 'required',
             'description' => 'required',
         ]);
+        //melakukan INSERT ke database
+        Listing::create($formFields);
+        //cara di bawah ini juga bisa langsung INSERT ke database tanpa validation dan membuat variable baru untuk field tertentu
+        //Listing::create($request->all()); //jika sudah meng-off kan field protection di AppServiceProvider, sebaiknya jangan pakai cara ini, takutnya ada data lain selain field yg kita maksud di database ikut masuk
+        return redirect('/home'); //kalo udah selesai maka redirect ke path /home
     }
 }

@@ -7,6 +7,7 @@
             <p class="mb-4">Post a gig to find a developer</p>
         </header>
 
+        <!--MATERI DATABASE IN LARAVEL - INSERT Database in Laravel-->
         <form method="POST" action="/home/listings">
             @csrf <!--@csrf Directive untuk aman dari pengiriman data melalui web lain (CSRF Protection)-->
             <div class="mb-6">

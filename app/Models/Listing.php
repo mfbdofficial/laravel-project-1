@@ -11,6 +11,12 @@ class Listing extends Model
     //MATERI DATABASE IN LARAVEL - Penggunaan Model, Migration, Seeder, Factory Terkoneksi MySQL
     use HasFactory;
 
+    //MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
+    //property ini harus dimasukkan ketika melakukan INSERT ke database pakai create() di Controller, karena ada suatu protection dari Laravel jadi nama field-nya harus disebut di property $fillable ini
+    /*
+    protected $fillable = ['title', 'company', 'location', 'website', 'email', 'tags', 'description'];
+    */
+
     //MATERI LARAVEL ELOQUENT - Model
     //sumber data bagian ini masih hardcode belum dari database
     /*

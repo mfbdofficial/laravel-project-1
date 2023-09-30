@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,5 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        //MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
+        Model::unguard(); //kita off-kan protection Laravel untuk keharusan membuat property $fillable di Model untuk INSERT database
     }
 }

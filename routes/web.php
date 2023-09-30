@@ -460,6 +460,7 @@ Route::get('/home/listings/{listing}', function(Listing $listing) { //parameter 
 Route::get('/home', [\App\Http\Controllers\ListingController::class, 'index']);
 //Show Create Form
 Route::get('/home/listings/create', [\App\Http\Controllers\ListingController::class, 'create']); //agar tidak Routing Conflict, maka ini posisinya di atas
+//MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
 //Store Listing Data
 Route::post('/home/listings', [\App\Http\Controllers\ListingController::class, 'store']); 
 //Single Listing

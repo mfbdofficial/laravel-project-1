@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Listing; //untuk memakai Model Listing
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule; //untuk memakai fitur validasi Rule
 
 class ListingController extends Controller
@@ -80,6 +81,13 @@ class ListingController extends Controller
         Listing::create($formFields);
         //cara di bawah ini juga bisa langsung INSERT ke database tanpa validation dan membuat variable baru untuk field tertentu
         //Listing::create($request->all()); //jika sudah meng-off kan field protection di AppServiceProvider, sebaiknya jangan pakai cara ini, takutnya ada data lain selain field yg kita maksud di database ikut masuk
-        return redirect('/home'); //kalo udah selesai maka redirect ke path /home
+
+        //MATERI CONTROLLER - Flash Message di Controller
+        //$request->session()->flash('message', 'Listing Created'); //cara Dependency Injection
+        //Session::flash('message', 'Listing Created'); //cara Facade
+        //session()->flash('message', 'Listing Created'); //cara Helper Function (cara ini tidak kena error extension PHP Intelephense)
+        //kemungkinan di atas itu method flash() di Laravel (cara Dependency Injection dan Facade) error cuma dari extension PHP Intelephense (sebenarnya bisa jalan), jadi pakai method with() seperti di bawah
+        //coba baca masalah tentang method flas() ini di https://stackoverflow.com/questions/71892173/undefined-flash-method-in-laravel-9
+        return redirect('/home')->with('message', 'Listing created successfully!'); //kalo udah selesai maka redirect ke path /home
     }
 }

@@ -30,6 +30,19 @@
         </script>
         <title>LaraGigs | Find Laravel Jobs & Projects</title>
     </head>
+
+    <!--MATERI CONTROLLER - Flash Message di Controller-->
+    <!--bagian flash message (menampilkan flash data yg ada untuk 1 kali request saja, setelahnya flash data langsung dihapus)-->
+    <!-- 
+    @if (session('message'))
+        <div class="alert alert-success">
+            {{session('message')}}
+        </div>
+    @endif 
+    -->
+    <!--bagian flash message di atas sudah dijadikan component-->
+    <x-flash-message/>
+
     <body class="mb-48">
         <nav class="flex justify-between items-center mb-4">
             <a href="/home">

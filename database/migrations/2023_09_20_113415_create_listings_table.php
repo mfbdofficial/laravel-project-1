@@ -15,6 +15,8 @@ return new class extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id(); //membuat field id, yg biasanya menjadi Primary Key
             $table->string('title'); //membuat field tipe data string dengan string(<nama_field>)
+            //MATERI FILE UPLOAD
+            $table->string('logo')->nullable(); //tipe-nya juga string karena yg kita simpan adalah path gambar-nya, nullable() artinya boleh kosong
             $table->string('tags');
             $table->string('company');
             $table->string('location');

@@ -25,7 +25,7 @@ class FileStorageTest extends TestCase
     //MATERI FILE STORAGE - Storage Link
     public function testPublic()
     {
-        $fileSystem = Storage::disk('public'); //mengembalikan sebuah object file system, karena public maka pakai konfigurasi yg local (disimpan di laravel-project-1/storage/app/public)
+        $fileSystem = Storage::disk('public'); //mengembalikan sebuah object file system, karena public maka pakai konfigurasi yg public (disimpan di laravel-project-1/storage/app/public)
         $fileSystem->put('file2.txt', 'Ini adalah file yang dibuat untuk contoh menambahkan file yg sudah ada symbolic link');
         
         $this->assertEquals('Ini adalah file yang dibuat untuk contoh menambahkan file yg sudah ada symbolic link', $fileSystem->get('file2.txt'));

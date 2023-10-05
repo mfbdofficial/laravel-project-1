@@ -98,6 +98,9 @@
             <p>No listings found.</p>
         @endunless
     </div>
+
+    <!--MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - Membuat Pagination-->
+    <div class="mt-4 p-4">{{$listings->links()}}</div>
 @endsection
 
 <!--halaman ini memanfaatkan Component listing-card.blade.php-->

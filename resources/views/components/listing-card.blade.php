@@ -7,7 +7,12 @@
 <x-card>
     <div class="flex">
         <!--di bagian ini kita pakai function asset() untuk ambil assets kita seperti image dll-->
+        <!--
         <img class="hidden w-48 mr-6 md:block" src="{{asset('images/no-image.png')}}" alt=""/>
+        -->
+        <!--code sudah ditimpa oleh MATERI FILE UPLOAD-->
+        <!--MATERI FILE UPLOAD-->
+        <img class="hidden w-48 mr-6 md:block" src="{{$listing->logo ? asset('storage/' . $listing->logo) : asset('images/no-image.png')}}" alt=""/>
         <div>
             <h3 class="text-2xl">
                 <a href="/home/listings/{{$listing->id}}">{{$listing->title}}</a>

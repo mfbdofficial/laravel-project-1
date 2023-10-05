@@ -21,7 +21,12 @@
         <!--MATERI BLADE TEMPLATE LARAVEL - Directive - Component - Component Digabungkan Dengan Component Lain-->
         <x-card class="p-24 bg-black"> <!--entah kenapa bagian yg merge attribute class ini tidak jalan-->
             <div class="flex flex-col items-center justify-center text-center">
+                <!--
                 <img class="w-48 mr-6 mb-6" src="{{asset('images/no-image.png')}}" alt="">
+                -->
+                <!--code sudah ditimpa oleh MATERI FILE UPLOAD-->
+                <!--MATERI FILE UPLOAD-->
+                <img class="w-48 mr-6 mb-6" src="{{$listing->logo ? asset('storage/' . $listing->logo) : asset('images/no-image.png')}}" alt="">
                 <h3 class="text-2xl mb-2">{{$listing->title}}</h3>
                 <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
                 <!--

@@ -23,5 +23,8 @@ class AppServiceProvider extends ServiceProvider
         //
         //MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
         Model::unguard(); //kita off-kan protection Laravel untuk keharusan membuat property $fillable di Model untuk INSERT database
+
+        //MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - Membuat Pagination
+        //Paginator::useBootstrapFive(); //untuk ubah style links() pada fitur pagination
     }
 }

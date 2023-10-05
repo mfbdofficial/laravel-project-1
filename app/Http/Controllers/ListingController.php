@@ -28,15 +28,27 @@ class ListingController extends Controller
         ]); //lalu sebenarnya juga ada mehotd find() untuk mengambil 1 data saja
         */
         //sekarang sudah pakai best practice untuk penamaan dan struktur View-nya
+
+        //MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - Membuat Pagination
+        //coba bandingkan isi keduanya
+        //dd(Listing::latest()->filter(request(['tag', 'search']))->get()); //cuma property items
+        //dd(Listing::latest()->filter(request(['tag', 'search']))->paginate(4)); //mengandung banyak property tentang page
         return view('listings.index', [
             'heading' => 'Latest Listings', //kita sudah tidak butuh data ini (tidak dipakai di View yg sekarang), tapi karena ada bekas code percobaan sebelumnya maka biarkan saja
             //'listings' => Listing::all() //di Model sudah ada default method all() untuk mengambil semua data Model itu
             //'listings' => Listing::latest()->get() //ini sama kayak all() tapi diurutkan dari data yang paling baru ditambahkan
+            /*
             'listings' => Listing::latest()->filter(request(['tag', 'search']))->get() //ini request(['tag'])-nya termasuk cara Helper Function
+            */ 
+            //code sudah ditimpa oleh MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - Membuat Pagination
             //cara kerjanya jadi pertama kita sort atau urutkan pakai latest(),
             //kedua kita filter datanya pakai filter() akan berhubungan dengan method scopeFilter() di Model-nya (di sana bikin query dengan WHERE clause),
             //ketiga melakukan get() untuk ambil data setelah lakukan filter(), 
             //kalo hasil filter tidak ada yg cocok maka mengembalikan semua data, kalo ada maka balikkannya adalah yg sesuai hasil filter
+            //MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - Membuat Pagination
+            //'listings' => Listing::latest()->filter(request(['tag', 'search']))->paginate(4) //method links() di View-nya akan membuat pagination complex dengan tulisan angka page-nya
+            'listings' => Listing::latest()->filter(request(['tag', 'search']))->simplePaginate(4) // method links() di View-nya akan membuat pagination sederhana hanya dengan tulisan "Next" dan "Previous"
+            //jika sudah pakai Helper Function paginate() ini, maka Route-nya bisa menerima Query Parameter "page"  
         ]);
     }
 
@@ -77,6 +89,12 @@ class ListingController extends Controller
             'tags' => 'required',
             'description' => 'required',
         ]);
+
+        //MATERI FILE UPLOAD
+        if($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
         //melakukan INSERT ke database
         Listing::create($formFields);
         //cara di bawah ini juga bisa langsung INSERT ke database tanpa validation dan membuat variable baru untuk field tertentu

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Listing; //untuk memakai Model Listing
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File; //untuk memakai Facade File
+use Illuminate\Support\Facades\Session; //untuk memakai Facade Session
 use Illuminate\Validation\Rule; //untuk memakai fitur validasi Rule
 
 class ListingController extends Controller
@@ -53,7 +54,7 @@ class ListingController extends Controller
     }
 
     //to get single listing data from Model and the show it in the View
-    public function show(Listing $listing)
+    public function show(Listing $listing) //Dependency Injection mengambil data Model (Listing) dengan menggunakan id-nya (lalu didapatkan object $listing)
     {
         /*
         return view('listing', [
@@ -66,13 +67,13 @@ class ListingController extends Controller
         ]);
     }
 
+    //MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
     //to show a page (form) for create a new job listing
     public function create()
     {
         return view('listings.create');
     }
 
-    //MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
     //to store a listing data from the create form page 
     public function store(Request $request)
     {
@@ -107,5 +108,57 @@ class ListingController extends Controller
         //kemungkinan di atas itu method flash() di Laravel (cara Dependency Injection dan Facade) error cuma dari extension PHP Intelephense (sebenarnya bisa jalan), jadi pakai method with() seperti di bawah
         //coba baca masalah tentang method flas() ini di https://stackoverflow.com/questions/71892173/undefined-flash-method-in-laravel-9
         return redirect('/home')->with('message', 'Listing created successfully!'); //kalo udah selesai maka redirect ke path /home
+    }
+
+    //MATERI DATABASE IN LARAVEL - UPDATE Database in Laravel
+    //to show a page (form) for edit (UPDATE data) a job listing
+    public function edit(Listing $listing) 
+    {
+        /*
+        dd($listing);
+        dd($listing->title);
+        */
+        return view('listings.edit', ['listing' => $listing]);
+    }
+
+    //to store a new listing data from the edit form page
+    public function update(Request $request, Listing $listing)
+    {
+        $formFields = $request->validate([
+            'title' => 'required', //required artinya tidak boleh kosong
+            /*
+            'company' => ['required', Rule::unique('listings', 'company')], //pakai bantuan Rule:unique(), artinya data ga boleh sama, parameter-nya array ['table_name', 'field_name']
+            */
+            'company' => ['required'], //peraturan Rule::unique('listings', 'company') dihilangkan, karena bisa jadi orangnya tidak ingin ubah nama company-nya, karena kalo ada Rule:unique() maka ga bisa lanjut kalo value company-nya sama
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'], //email artinya harus dalam bentuk email yg valid
+            'tags' => 'required',
+            'description' => 'required',
+        ]);
+
+        if($request->hasFile('logo')) {
+            if($listing->logo) {
+                File::delete(storage_path('app/public/' . $listing->logo));
+            }
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        //$listing->update($formFields); //ini cara Dependency Injection
+        Listing::where('id', $listing->id)->update($formFields); //ini cara memakai method pada Model-nya
+
+        /*
+        return redirect('/home')->with('message', 'Listing updated successfully!');
+        return back()->with('message', 'Listing updated successfully!'); //back() itu kembali ke halaman sebelumnya
+        */
+        return redirect('/home/listings/' . $listing->id)->with('message', 'Listing updated successfully!');
+    }
+
+    //MATERI DATABASE IN LARAVEL - DELETE Database in Laravel
+    //to delete a listing 
+    public function destroy(Listing $listing) 
+    {
+        $listing->delete();
+        return redirect('/home')->with('message', 'Listing deleted successfully!');
     }
 }

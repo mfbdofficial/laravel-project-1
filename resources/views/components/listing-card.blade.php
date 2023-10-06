@@ -12,6 +12,8 @@
         -->
         <!--code sudah ditimpa oleh MATERI FILE UPLOAD-->
         <!--MATERI FILE UPLOAD-->
+        <!--isi attribute src di bawah yaitu operator ternary yg mengecek apakah ada property logo di hasil $listing (dari perulangan foreach $listings berasal dari database)-->
+        <!--kalo ada maka diisi path data $listing->logo (dari field di database), kalo tidak ada maka pakai path logo no-image.png yg default-->
         <img class="hidden w-48 mr-6 md:block" src="{{$listing->logo ? asset('storage/' . $listing->logo) : asset('images/no-image.png')}}" alt=""/>
         <div>
             <h3 class="text-2xl">

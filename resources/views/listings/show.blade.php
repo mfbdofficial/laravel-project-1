@@ -26,6 +26,8 @@
                 -->
                 <!--code sudah ditimpa oleh MATERI FILE UPLOAD-->
                 <!--MATERI FILE UPLOAD-->
+                <!--isi attribute src di bawah yaitu operator ternary yg mengecek apakah ada property logo di hasil $listing (dari perulangan foreach $listings berasal dari database)-->
+                <!--kalo ada maka diisi path data $listing->logo (dari field di database), kalo tidak ada maka pakai path logo no-image.png yg default-->
                 <img class="w-48 mr-6 mb-6" src="{{$listing->logo ? asset('storage/' . $listing->logo) : asset('images/no-image.png')}}" alt="">
                 <h3 class="text-2xl mb-2">{{$listing->title}}</h3>
                 <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
@@ -69,6 +71,22 @@
         </x-card>
         <!--di bawah ini cuma sisa bekas tag div di atas yg diganti dengan Component-->
         <!--</div>-->
+
+        <x-card class="mt-4 p-2 flex space-x-6">
+            <!--MATERI DATABASE IN LARAVEL - UPDATE Database in Laravel-->
+            <a href="/home/listings/{{$listing->id}}/edit">
+                <i class="fa-solid fa-pencil"></i> Edit
+            </a>
+
+            <!--MATERI DATABASE IN LARAVEL - DELETE Database in Laravel-->
+            <form method="POST" action="/home/listings/{{$listing->id}}">
+                @csrf
+                @method('DELETE')
+                <button class="text-red-500" onclick="return confirm('Are you sure to DELETE this listing?');">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
+            </form>
+        </x-card>
     </div>
 @endsection
 

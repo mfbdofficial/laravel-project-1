@@ -458,10 +458,23 @@ Route::get('/home/listings/{listing}', function(Listing $listing) { //parameter 
 
 //All Listings
 Route::get('/home', [\App\Http\Controllers\ListingController::class, 'index']);
+
+//MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
 //Show Create Form
 Route::get('/home/listings/create', [\App\Http\Controllers\ListingController::class, 'create']); //agar tidak Routing Conflict, maka ini posisinya di atas
-//MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
-//Store Listing Data
+//Store Listing Data to Create
 Route::post('/home/listings', [\App\Http\Controllers\ListingController::class, 'store']); 
+
+//MATERI DATABASE IN LARAVEL - UPDATE Database in Laravel
+//Show Edit (For Update Listing) Form
+Route::get('/home/listings/{listing}/edit', [\App\Http\Controllers\ListingController::class, 'edit']); //kalo ada yg membawa parameter juga, yg path-nya lebih panjang maka ditaruh atas (agar terseleksi)
+//Store Listing Data to Update
+Route::put('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'update']);
+
+//MATERI DATABASE IN LARAVEL - DELETE Database in Laravel
+//Delete Listing
+Route::delete('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'destroy']);
+
 //Single Listing
 Route::get('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'show']); //ini posisinya di bawah
+//kalo path ini di atas, maka akan masuk ke path ini duluan tanpa sempat ke tempat yg path-nya lebih panjang (kita tidak menginginkan hal ini)

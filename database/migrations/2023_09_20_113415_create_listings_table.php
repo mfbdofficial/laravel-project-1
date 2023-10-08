@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('website');
             $table->longText('description'); //kalo untuk tipe data string yg kemungkinan isinya panjang maka pakai method longText()
-            $table->timestamps(); //membuat field dengan tipe data waktu (timestamp)
+            $table->timestamps(); //membuat field dengan tipe data waktu (timestamp), di database akan menjadi field "created_at"
         });
     }
 

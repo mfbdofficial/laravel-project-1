@@ -379,6 +379,7 @@ Route::get('/abort/400', function () {
 });
 
 
+
 //PART WHERE THE PROJECT STARTS
 /*
 Route::get('/home', function() {
@@ -456,6 +457,8 @@ Route::get('/home/listings/{listing}', function(Listing $listing) { //parameter 
 */
 //code sudah ditimpa oleh Route '/home' di bawah, sudah melalui Controller
 
+
+//listings Table Part 
 //All Listings
 Route::get('/home', [\App\Http\Controllers\ListingController::class, 'index']);
 
@@ -478,3 +481,10 @@ Route::delete('/home/listings/{listing}', [\App\Http\Controllers\ListingControll
 //Single Listing
 Route::get('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'show']); //ini posisinya di bawah
 //kalo path ini di atas, maka akan masuk ke path ini duluan tanpa sempat ke tempat yg path-nya lebih panjang (kita tidak menginginkan hal ini)
+
+
+//users Table Part
+//Show Register Create Form
+Route::get('/home/register', [\App\Http\Controllers\UserController::class, 'create']);
+//Store User Data to Create
+Route::post('/home/users', [\App\Http\Controllers\UserController::class, 'store']);

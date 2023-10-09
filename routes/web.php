@@ -381,6 +381,7 @@ Route::get('/abort/400', function () {
 
 
 //PART WHERE THE PROJECT STARTS
+//LARAGIGS
 /*
 Route::get('/home', function() {
     return view('listings', [
@@ -461,30 +462,65 @@ Route::get('/home/listings/{listing}', function(Listing $listing) { //parameter 
 //listings Table Part 
 //All Listings
 Route::get('/home', [\App\Http\Controllers\ListingController::class, 'index']);
+//path di atas bisa saja dibuat GET '/', karena menjadi halaman home
 
 //MATERI DATABASE IN LARAVEL - INSERT Database in Laravel
+//MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Memanfaatkan Hasil Session Login - Membuat Route Tertentu Hanya Bisa Diakses Pasca Login
 //Show Create Form
-Route::get('/home/listings/create', [\App\Http\Controllers\ListingController::class, 'create']); //agar tidak Routing Conflict, maka ini posisinya di atas
+Route::get('/home/listings/create', [\App\Http\Controllers\ListingController::class, 'create'])->middleware('auth'); //agar tidak Routing Conflict, maka ini posisinya di atas
+//path di atas bisa saja dibuat GET '/listings/create'
 //Store Listing Data to Create
-Route::post('/home/listings', [\App\Http\Controllers\ListingController::class, 'store']); 
+Route::post('/home/listings', [\App\Http\Controllers\ListingController::class, 'store'])->middleware('auth'); 
+//path di atas bisa saja dibuat POST '/listings'
 
 //MATERI DATABASE IN LARAVEL - UPDATE Database in Laravel
 //Show Edit (For Update Listing) Form
-Route::get('/home/listings/{listing}/edit', [\App\Http\Controllers\ListingController::class, 'edit']); //kalo ada yg membawa parameter juga, yg path-nya lebih panjang maka ditaruh atas (agar terseleksi)
+Route::get('/home/listings/{listing}/edit', [\App\Http\Controllers\ListingController::class, 'edit'])->middleware('auth'); //kalo ada yg membawa parameter juga, yg path-nya lebih panjang maka ditaruh atas (agar terseleksi)
+//path di atas bisa saja dibuat GET '/listings/{listing}/edit
 //Store Listing Data to Update
-Route::put('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'update']);
-
-//MATERI DATABASE IN LARAVEL - DELETE Database in Laravel
-//Delete Listing
-Route::delete('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'destroy']);
+Route::put('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'update'])->middleware('auth');
+//path di atas bisa saja dibuat PUT '/listings/{listing}'
 
 //Single Listing
 Route::get('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'show']); //ini posisinya di bawah
 //kalo path ini di atas, maka akan masuk ke path ini duluan tanpa sempat ke tempat yg path-nya lebih panjang (kita tidak menginginkan hal ini)
+//path di atas bisa saja dibuat GET '/listings/{listing}'
+
+//MATERI DATABASE IN LARAVEL - DELETE Database in Laravel
+//Delete Listing
+Route::delete('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'destroy'])->middleware('auth');
+//path di atas bisa saja dibuat DELETE '/listings/{listing}'
 
 
 //users Table Part
+//MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Create a New User
+//MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Memanfaatkan Hasil Session Login - Membuat Route Tertentu Tidak Boleh Diakses Pasca Login
 //Show Register Create Form
-Route::get('/home/register', [\App\Http\Controllers\UserController::class, 'create']);
+Route::get('/home/register', [\App\Http\Controllers\UserController::class, 'create'])->middleware('guest');
+//path di atas bisa saja dibuat GET '/register'
 //Store User Data to Create
 Route::post('/home/users', [\App\Http\Controllers\UserController::class, 'store']);
+//path di atas bisa saja dibuat POST '/register'
+
+//MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Logout & Login System - Logout
+//Logout 
+Route::post('/home/logout', [\App\Http\Controllers\UserController::class, 'logout'])->middleware('auth');
+//path di atas bisa saja dibuat POST '/logout'
+
+//MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Logout & Login System - Login
+//Show Login Form
+Route::get('/home/login', [\App\Http\Controllers\UserController::class, 'login'])->name('login')->middleware('guest');
+//path di atas bisa saja dibuat GET '/login'
+//Login User
+Route::post('/home/users/authenticate', [\App\Http\Controllers\UserController::class, 'authenticate']);
+//path di atas bisa saja dibuat POST '/login'
+//NOTE : Untuk sistem User Authentication diperlakukan agak berbeda dari CRUD biasa, Route-nya kebanyakan mengarah ke '/' lalu langsung aksi-nya
+
+
+//Features After Login Part
+Route::get('/home/listings/manage', [\App\Http\Controllers\ListingController::class, 'show']);
+//path di atas bisa saja dibut GET '/listings/manage'
+
+
+//NOTE : Semua path project di atas, pakai prefix '/home' sebenarnya karena agar tidak tercampur dengan bekas belajar Laravel yg awal saja,
+//kalo dalam project terpisah, maka langsung prefix '/' saja

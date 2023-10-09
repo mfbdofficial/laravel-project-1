@@ -50,27 +50,41 @@
                 <img class="w-24" src="{{asset('images/logo.png')}}" alt="" class="logo">
             </a>
             <ul class="flex space-x-6 mr-6 text-lg">
-                <li>
-                    <a href="/home/register" class="hover:text-laravel">
-                        <i class="fa-solid fa-user-plus"></i> Register
-                    </a>
-                </li>
-                <li>
-                    <a href="/home/listings/manage" class="hover:text-laravel">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Manage Listing
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/home/register" class="hover:text-laravel">
-                        <i class="fa-solid fa-user-plus"></i> Register
-                    </a>
-                </li>
-                <li>
-                    <a href="/home/login" class="hover:text-laravel">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
-                    </a>
-                </li>
+                <!--MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Memanfaatkan Hasil Session Login-->
+                @auth
+                    <li>
+                        <span class="font-bold uppercase">
+                            Welcome {{auth()->user()->name}}
+                        </span>
+                    </li>
+                    <li>
+                        <a href="/home/listings/manage" class="hover:text-laravel">
+                            <i class="fa-solid fa-gear"></i> Manage Listings
+                        </a>
+                    </li>
+                    <!--MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Logout & Login System - Logout-->
+                    <li>
+                        <form method="POST" action="/home/logout" class="inline">
+                            @csrf
+                            <button type="submit">
+                                <i class="fa-solid fa-door-closed"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                @else
+                    <!--MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Create a New User-->
+                    <li>
+                        <a href="/home/register" class="hover:text-laravel">
+                            <i class="fa-solid fa-user-plus"></i> Register
+                        </a>
+                    </li>
+                    <!--MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Logout & Login System - Login-->
+                    <li>
+                        <a href="/home/login" class="hover:text-laravel">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+                        </a>
+                    </li>
+                @endauth
             </ul>
         </nav>
 

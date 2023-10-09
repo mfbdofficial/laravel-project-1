@@ -12,6 +12,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : route('login');
+        //MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Memanfaatkan Hasil Session Login - Membuat Route Tertentu Hanya Bisa Diakses Pasca Login
+        return $request->expectsJson() ? null : route('login'); //artinya menuju Named Route yg memiliki name "login"
     }
 }

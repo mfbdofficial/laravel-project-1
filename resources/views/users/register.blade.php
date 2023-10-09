@@ -1,3 +1,4 @@
+<!--MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Create a New User-->
 @extends('layout')
 
 @section('content')

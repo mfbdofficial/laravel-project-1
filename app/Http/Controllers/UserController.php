@@ -8,6 +8,7 @@ use App\Models\User; //untuk memakai Model User
 
 class UserController extends Controller
 {
+    //MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Create a New User
     //to show a page (form) for create a new user
     public function create()
     {
@@ -40,4 +41,42 @@ class UserController extends Controller
 
         return redirect('/home')->with('message', 'User created and logged in.');
     } //ketika sudah melakukan login() itu artinya ada data session yg terbuat (kita bisa lakukan sesuatu, misal ubah tampilan View berdasarkan data session itu)
+
+    //MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Logout & Login System - Logout
+    //to logout from an account 
+    public function logout(Request $request)
+    {
+        auth()->logout(); //remove authentication information from Session
+        //ini sebenarnya sudah logout, tapi disarankan untuk menambah step 
+        //yaitu meng-invalidate session milik user dan melakukan re-generate (generate ulang) CSRF token (CSRF Protection) milik user 
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/home')->with('message', 'You have been logged out!');
+    }
+
+    //MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Logout & Login System - Login
+    //to show a page (form) for login
+    public function login()
+    {
+        return view('users.login');
+    }
+
+    //to authenticate user 
+    public function authenticate(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => ['required', 'email'], 
+            'password' => 'required'
+        ]);
+
+        //kita meng-attempt to login (mencoba untuk login)
+        if(auth()->attempt($formFields)) {
+            //kalo true maka kita generate session id-nya
+            $request->session()->regenerate();
+
+            return redirect('/home')->with('message', 'You are now logged in!');
+        }
+        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+    }
 }

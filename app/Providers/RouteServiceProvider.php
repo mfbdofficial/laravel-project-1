@@ -17,6 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    //MATERI PENERAPAN LARAVEL UNTUK FITUR PROJECT - User Authentication in Laravel - Memanfaatkan Hasil Session Login - Membuat Route Tertentu Tidak Boleh Diakses Pasca Login
     public const HOME = '/home';
 
     /**

@@ -96,6 +96,8 @@ class ListingController extends Controller
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
+        $formFields['user_id'] = auth()->id();
+
         //melakukan INSERT ke database
         Listing::create($formFields);
         //cara di bawah ini juga bisa langsung INSERT ke database tanpa validation dan membuat variable baru untuk field tertentu

@@ -71,4 +71,11 @@ class Listing extends Model
                 ->orWhere('location', 'LIKE', '%' . request('search') . '%'); 
         }
     }
+
+    //MATERI DATABASE IN LARAVEL - Membangun Relationship Antara Table di Database Laravel
+    //Relationship With User
+    public function user() //kalo belongsTo(), nama method-nya dibuat singular saja
+    {
+        return $this->belongsTo(User::class, 'user_id'); //pakai belongsTo() karena konsep kita yaitu sebuah listing adalah kepunyaan (dibuat oleh) user tertentu
+    }
 }

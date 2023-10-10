@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Listing; //use untuk memakai Model Listing
+use App\Models\User; //use untuk memakai Model User
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         //MATERI DATABASE IN LARAVEL - Laravel Seeder
+        /*
         \App\Models\User::factory(8)->create();
+        */
+        //code sudah ditimpa oleh MATERI DATABASE IN LARAVEL - Membangun Relationship Antara Table di Database Laravel
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -46,6 +50,19 @@ class DatabaseSeeder extends Seeder
 
         //MATERI DATABASE IN LARAVEL - Penggunaan Model, Migration, Seeder, Factory Terkoneksi MySQL
         //cara pakai Seeder kalo datanya sudah dihasilkan Factory untuk buat dummy data
+        /*
         Listing::factory(6)->create();
+        */
+        //code sudah ditimpa oleh MATERI DATABASE IN LARAVEL - Membangun Relationship Antara Table di Database Laravel
+
+        //MATERI DATABASE IN LARAVEL - Membangun Relationship Antara Table di Database Laravel
+        $user = User::factory()->create([
+            'name' => 'Alex Ferguson',
+            'email' => 'alexferguson01@gmail.com'
+        ]);
+
+        Listing::factory(6)->create([
+            'user_id' => $user->id
+        ]);
     }
 }

@@ -41,4 +41,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //MATERI DATABASE IN LARAVEL - Membangun Relationship Antara Table di Database Laravel
+    //Relationship With Listing
+    public function listings() //kalo hasMany(), nama method-nya dibuat plural saja
+    {
+        return $this->hasMany(Listing::class, 'user_id');
+    }
 }

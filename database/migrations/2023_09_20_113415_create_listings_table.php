@@ -14,6 +14,9 @@ return new class extends Migration
         //MATERI DATABASE IN LARAVEL - Penggunaan Model, Migration, Seeder, Factory Terkoneksi MySQL
         Schema::create('listings', function (Blueprint $table) {
             $table->id(); //membuat field id, yg biasanya menjadi Primary Key
+            //MATERI DATABASE IN LARAVEL - Membangun Relationship Antara Table di Database Laravel
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            //constrained()->onDelete('cascade'), akan membuat jika ada user yg dihapus maka data listings milik dia juga terhapus semua
             $table->string('title'); //membuat field tipe data string dengan string(<nama_field>)
             //MATERI FILE UPLOAD
             $table->string('logo')->nullable(); //tipe-nya juga string karena yg kita simpan adalah path gambar-nya, nullable() artinya boleh kosong

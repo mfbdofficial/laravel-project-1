@@ -481,6 +481,10 @@ Route::get('/home/listings/{listing}/edit', [\App\Http\Controllers\ListingContro
 Route::put('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'update'])->middleware('auth');
 //path di atas bisa saja dibuat PUT '/listings/{listing}'
 
+//Show Manage Listings Page
+Route::get('/home/listings/manage', [\App\Http\Controllers\ListingController::class, 'manage'])->middleware('auth');
+//path di atas bisa saja dibut GET '/listings/manage'
+
 //Single Listing
 Route::get('/home/listings/{listing}', [\App\Http\Controllers\ListingController::class, 'show']); //ini posisinya di bawah
 //kalo path ini di atas, maka akan masuk ke path ini duluan tanpa sempat ke tempat yg path-nya lebih panjang (kita tidak menginginkan hal ini)
@@ -515,12 +519,6 @@ Route::get('/home/login', [\App\Http\Controllers\UserController::class, 'login']
 Route::post('/home/users/authenticate', [\App\Http\Controllers\UserController::class, 'authenticate']);
 //path di atas bisa saja dibuat POST '/login'
 //NOTE : Untuk sistem User Authentication diperlakukan agak berbeda dari CRUD biasa, Route-nya kebanyakan mengarah ke '/' lalu langsung aksi-nya
-
-
-//Features After Login Part
-Route::get('/home/listings/manage', [\App\Http\Controllers\ListingController::class, 'show']);
-//path di atas bisa saja dibut GET '/listings/manage'
-
 
 //NOTE : Semua path project di atas, pakai prefix '/home' sebenarnya karena agar tidak tercampur dengan bekas belajar Laravel yg awal saja,
 //kalo dalam project terpisah, maka langsung prefix '/' saja

@@ -72,6 +72,9 @@
         <!--di bawah ini cuma sisa bekas tag div di atas yg diganti dengan Component-->
         <!--</div>-->
 
+        <!--karena sudah ada data relationship antara data listings dan users di halaman manage, jadi bagian ini harusnya tidak perlu ada-->
+        <!--jadi hanya user sebagai pemilik listing-nya yang bisa melakukan update dan delete data listing milik user tersebut-->
+        <!--bagian ini tidak usah (batas atas)-->
         <x-card class="mt-4 p-2 flex space-x-6">
             <!--MATERI DATABASE IN LARAVEL - UPDATE Database in Laravel-->
             <a href="/home/listings/{{$listing->id}}/edit">
@@ -87,6 +90,7 @@
                 </button>
             </form>
         </x-card>
+        <!--sampe bagian ini tidak usah (batas bawah)-->
     </div>
 @endsection
 

@@ -53,7 +53,7 @@ class ListingController extends Controller
         ]);
     }
 
-    //to get single listing data from Model and the show it in the View
+    //to get single listing data from Model and then show it in the View
     public function show(Listing $listing) //Dependency Injection mengambil data Model (Listing) dengan menggunakan id-nya (lalu didapatkan object $listing)
     {
         /*
@@ -126,6 +126,12 @@ class ListingController extends Controller
     //to store a new listing data from the edit form page
     public function update(Request $request, Listing $listing)
     {
+        //sebelum proses update, pastikan terlebih dahulu, yg melakukan update listing itu user yg benar (sama dengan user yg login saat itu)
+        //cek apakah nilai field user_id yg sebagai Foreign Key, sama dengan data id milik user yg login sekarang
+        if($listing->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action!');
+        } //ini fungsinya untuk mem-protect saja, bisa jadi ada yg iseng tiba - tiba bisa edit listing yg bukan punya user itu, jadi kita pertahankan lagi di logic ini
+
         $formFields = $request->validate([
             'title' => 'required', //required artinya tidak boleh kosong
             /*
@@ -160,7 +166,19 @@ class ListingController extends Controller
     //to delete a listing 
     public function destroy(Listing $listing) 
     {
+        //sebelum proses delete, pastikan terlebih dahulu, yg melakukan delete listing itu user yg benar (sama dengan user yg login saat itu)
+        //cek apakah nilai field user_id yg sebagai Foreign Key, sama dengan data id milik user yg login sekarang
+        if($listing->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action!');
+        } //ini fungsinya untuk mem-protect saja, bisa jadi ada yg iseng tiba - tiba bisa delete listing yg bukan punya user itu, jadi kita pertahankan lagi di logic ini
+
         $listing->delete();
         return redirect('/home')->with('message', 'Listing deleted successfully!');
+    }
+
+    //to manage listings that the user have
+    public function manage()
+    {
+        return view('listings.manage', ['listings' => auth()->user()->listings()->get()]);
     }
 }

@@ -108,7 +108,7 @@ class ListingController extends Controller
         //Session::flash('message', 'Listing Created'); //cara Facade
         //session()->flash('message', 'Listing Created'); //cara Helper Function (cara ini tidak kena error extension PHP Intelephense)
         //kemungkinan di atas itu method flash() di Laravel (cara Dependency Injection dan Facade) error cuma dari extension PHP Intelephense (sebenarnya bisa jalan), jadi pakai method with() seperti di bawah
-        //coba baca masalah tentang method flas() ini di https://stackoverflow.com/questions/71892173/undefined-flash-method-in-laravel-9
+        //coba baca masalah tentang method flash() ini di https://stackoverflow.com/questions/71892173/undefined-flash-method-in-laravel-9
         return redirect('/home')->with('message', 'Listing created successfully!'); //kalo udah selesai maka redirect ke path /home
     }
 

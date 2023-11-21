@@ -32,7 +32,7 @@
             </div>
 
             <div class="mt-8">
-                <p>Don't have an account? <a href="/home/register" class="text-laravel">Login</a></p>
+                <p>Don't have an account? <a href="/home/register" class="text-laravel">Register</a></p>
             </div>
         </form>
     </x-card>
